@@ -1,235 +1,341 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="estilo.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="estilo.css">
 
-<title>PÁGINA DE LOGIN</title>
+    <title>PÁGINA DE LOGIN</title>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+    <!-- LOGIN -->
 
-<form id="formLogin">
+    <form id="formLogin">
 
-<fieldset id="fie">
+        <fieldset id="fie">
 
-<legend>LOGIN</legend>
+            <legend>LOGIN</legend>
 
-<p>
-<label>Login (Email): </label>
+            <p>
+                <label>Login (Email): </label>
 
-<input type="email"
-id="loginEmail"
-required>
-</p>
+                <input type="email"
+                       id="loginEmail"
+                       required>
+            </p>
 
-<p>
-<label>SENHA :</label>
+            <p>
+                <label>SENHA :</label>
 
-<input type="password"
-id="loginSenha"
-required>
-</p>
+                <input type="password"
+                       id="loginSenha"
+                       required>
+            </p>
 
-<center>
+            <center>
 
-<button type="submit">
-FAZER LOGIN
-</button>
+                <button type="submit">
+                    FAZER LOGIN
+                </button>
 
-</center>
+            </center>
 
-</fieldset>
+        </fieldset>
 
-</form>
+    </form>
 
-<!-- CADASTRO -->
 
-<form id="formCadastro">
+    <!-- CADASTRO -->
 
-<fieldset id="cad">
+    <form id="formCadastro">
 
-<legend>
-CASO NÃO TENHA LOGIN, CADASTRE-SE
-</legend>
+        <fieldset id="cad">
 
-<p>
-<label>Nome</label>
+            <legend>
+                CASO NÃO TENHA LOGIN, CADASTRE-SE
+            </legend>
 
-<input type="text"
-id="cadastroNome"
-required>
-</p>
+            <p>
+                <label>Nome</label>
 
-<p>
-<label>Email</label>
+                <input type="text"
+                       id="cadastroNome"
+                       required>
+            </p>
 
-<input type="email"
-id="cadastroEmail"
-required>
-</p>
+            <p>
+                <label>Email</label>
 
-<p>
-<label>Senha</label>
+                <input type="email"
+                       id="cadastroEmail"
+                       required>
+            </p>
 
-<input type="password"
-id="cadastroSenha"
-required>
-</p>
+            <p>
+                <label>Senha</label>
 
-<center>
+                <input type="password"
+                       id="cadastroSenha"
+                       required>
+            </p>
 
-<button type="submit">
-CADASTRE-SE
-</button>
+            <center>
 
-<input type="reset"
-value="Limpar">
+                <button type="submit">
+                    CADASTRE-SE
+                </button>
 
-</center>
+                <input type="reset"
+                       value="Limpar">
 
-</fieldset>
+            </center>
 
-</form>
+        </fieldset>
 
-<script type="module">
+    </form>
 
-// IMPORTAÇÕES FIREBASE
 
-import { initializeApp }
+    <!-- EXCLUIR CONTA -->
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    <form id="formDelete">
 
-import {
+        <fieldset>
 
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword
+            <legend>EXCLUIR CONTA</legend>
 
-}
+            <center>
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+                <button type="submit">
+                    EXCLUIR MINHA CONTA
+                </button>
 
-import {
+            </center>
 
-getFirestore,
-doc,
-setDoc
+        </fieldset>
 
-}
+    </form>
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// CONFIG FIREBASE
+    <script type="module">
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDTbM_zYLwr48RRTc-Vg075ftqJ5NfwOWQ",
-  authDomain: "albano-2e9e7.firebaseapp.com",
-  projectId: "albano-2e9e7",
-  storageBucket: "albano-2e9e7.firebasestorage.app",
-  messagingSenderId: "978832727853",
-  appId: "1:978832727853:web:57663dfe584550eb06fda4"
-};
+        // IMPORTAÇÕES FIREBASE
 
-// INICIALIZAÇÃO
+        import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-const app = initializeApp(firebaseConfig);
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            deleteUser
+        }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const auth = getAuth(app);
+        import {
+            getFirestore,
+            doc,
+            setDoc,
+            deleteDoc
+        }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const db = getFirestore(app);
 
+        // CONFIG FIREBASE
 
-// CADASTRO
+        const firebaseConfig = {
 
-document
-.getElementById("formCadastro")
+            apiKey: "AIzaSyDTbM_zYLwr48RRTc-Vg075ftqJ5NfwOWQ",
 
-.addEventListener("submit",
+            authDomain: "albano-2e9e7.firebaseapp.com",
 
-async (e) => {
+            projectId: "albano-2e9e7",
 
-e.preventDefault();
+            storageBucket: "albano-2e9e7.firebasestorage.app",
 
-const nome =
-document.getElementById("cadastroNome").value;
+            messagingSenderId: "978832727853",
 
-const email =
-document.getElementById("cadastroEmail").value;
+            appId: "1:978832727853:web:57663dfe584550eb06fda4"
 
-const senha =
-document.getElementById("cadastroSenha").value;
+        };
 
-try {
 
-const userCredential =
+        // INICIALIZAÇÃO
 
-await createUserWithEmailAndPassword(
-auth,
-email,
-senha
-);
+        const app = initializeApp(firebaseConfig);
 
-const user = userCredential.user;
+        const auth = getAuth(app);
 
-// SALVA DADOS NO FIRESTORE
+        const db = getFirestore(app);
 
-await setDoc(doc(db, "usuarios", user.uid), {
 
-nome: nome,
-email: email
+        // CADASTRO
 
-});
+        document
+        .getElementById("formCadastro")
+        .addEventListener("submit", async (e) => {
 
-alert("Usuário cadastrado!");
+            e.preventDefault();
 
-} catch (error) {
+            const nome =
+                document.getElementById("cadastroNome").value;
 
-alert(error.message);
+            const email =
+                document.getElementById("cadastroEmail").value;
 
-}
+            const senha =
+                document.getElementById("cadastroSenha").value;
 
-});
 
-// LOGIN
+            try {
 
-document
-.getElementById("formLogin")
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        senha
+                    );
 
-.addEventListener("submit",
+                const user = userCredential.user;
 
-async (e) => {
 
-e.preventDefault();
+                // SALVA DADOS NO FIRESTORE
 
-const email =
-document.getElementById("loginEmail").value;
+                await setDoc(
+                    doc(db, "usuarios", user.uid),
+                    {
+                        nome: nome,
+                        email: email
+                    }
+                );
 
-const senha =
-document.getElementById("loginSenha").value;
 
-try {
+                alert("Usuário cadastrado!");
 
-  await signInWithEmailAndPassword(
-    auth,
-    email,
-    senha
-);
 
-window.location.href = "site.html";
+            } catch (error) {
 
-} catch (error) {
+                alert(error.message);
 
-alert(error.message);
+            }
 
-}
+        });
 
-});
 
-</script>
+        // LOGIN
+
+        document
+        .getElementById("formLogin")
+        .addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            const email =
+                document.getElementById("loginEmail").value;
+
+            const senha =
+                document.getElementById("loginSenha").value;
+
+
+            try {
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    senha
+                );
+
+
+                window.location.href = "site.html";
+
+
+            } catch (error) {
+
+                alert(error.message);
+
+            }
+
+        });
+
+
+        // DELETE DA CONTA
+
+        document
+        .getElementById("formDelete")
+        .addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+
+            // VERIFICA SE EXISTE USUÁRIO LOGADO
+
+            const user = auth.currentUser;
+
+
+            if (!user) {
+
+                alert("Você precisa estar logado para excluir sua conta.");
+
+                return;
+
+            }
+
+
+            // CONFIRMAÇÃO
+
+            const confirmar = confirm(
+                "ATENÇÃO!\n\n" +
+                "Tem certeza que deseja excluir sua conta?\n\n" +
+                "Essa ação não poderá ser desfeita."
+            );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+                // 1. APAGA OS DADOS DO FIRESTORE
+
+                await deleteDoc(
+                    doc(db, "usuarios", user.uid)
+                );
+
+
+                // 2. APAGA A CONTA DO FIREBASE AUTHENTICATION
+
+                await deleteUser(user);
+
+
+                alert("Conta excluída com sucesso!");
+
+
+                // VOLTA PARA A PÁGINA DE LOGIN
+
+                window.location.href = "index.html";
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Não foi possível excluir a conta.\n\n" +
+                    error.message
+                );
+
+            }
+
+        });
+
+    </script>
 
 </body>
 </html>
+```
