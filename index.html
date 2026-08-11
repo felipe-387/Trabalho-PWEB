@@ -3,13 +3,17 @@
 <html lang="pt-br">
 
 <head>
+
     <meta charset="utf-8">
+
     <link rel="stylesheet" href="estilo.css">
 
     <title>PÁGINA DE LOGIN</title>
+
 </head>
 
 <body>
+
 
     <!-- LOGIN -->
 
@@ -20,19 +24,23 @@
             <legend>LOGIN</legend>
 
             <p>
-                <label>Login (Email): </label>
+                <label>Login (Email):</label>
 
-                <input type="email"
-                       id="loginEmail"
-                       required>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    required
+                >
             </p>
 
             <p>
-                <label>SENHA :</label>
+                <label>SENHA:</label>
 
-                <input type="password"
-                       id="loginSenha"
-                       required>
+                <input
+                    type="password"
+                    id="loginSenha"
+                    required
+                >
             </p>
 
             <center>
@@ -59,27 +67,33 @@
             </legend>
 
             <p>
-                <label>Nome</label>
+                <label>Nome:</label>
 
-                <input type="text"
-                       id="cadastroNome"
-                       required>
+                <input
+                    type="text"
+                    id="cadastroNome"
+                    required
+                >
             </p>
 
             <p>
-                <label>Email</label>
+                <label>Email:</label>
 
-                <input type="email"
-                       id="cadastroEmail"
-                       required>
+                <input
+                    type="email"
+                    id="cadastroEmail"
+                    required
+                >
             </p>
 
             <p>
-                <label>Senha</label>
+                <label>Senha:</label>
 
-                <input type="password"
-                       id="cadastroSenha"
-                       required>
+                <input
+                    type="password"
+                    id="cadastroSenha"
+                    required
+                >
             </p>
 
             <center>
@@ -88,29 +102,10 @@
                     CADASTRE-SE
                 </button>
 
-                <input type="reset"
-                       value="Limpar">
-
-            </center>
-
-        </fieldset>
-
-    </form>
-
-
-    <!-- EXCLUIR CONTA -->
-
-    <form id="formDelete">
-
-        <fieldset>
-
-            <legend>EXCLUIR CONTA</legend>
-
-            <center>
-
-                <button type="submit">
-                    EXCLUIR MINHA CONTA
-                </button>
+                <input
+                    type="reset"
+                    value="Limpar"
+                >
 
             </center>
 
@@ -121,29 +116,40 @@
 
     <script type="module">
 
-        // IMPORTAÇÕES FIREBASE
+        // =========================
+        // IMPORTAÇÕES DO FIREBASE
+        // =========================
 
         import { initializeApp }
+
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-        import {
-            getAuth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            deleteUser
-        }
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         import {
+
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword
+
+        }
+
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+        import {
+
             getFirestore,
             doc,
-            setDoc,
-            deleteDoc
+            setDoc
+
         }
+
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-        // CONFIG FIREBASE
+        // =========================
+        // CONFIGURAÇÃO DO FIREBASE
+        // =========================
 
         const firebaseConfig = {
 
@@ -162,7 +168,9 @@
         };
 
 
+        // =========================
         // INICIALIZAÇÃO
+        // =========================
 
         const app = initializeApp(firebaseConfig);
 
@@ -171,7 +179,9 @@
         const db = getFirestore(app);
 
 
+        // =========================
         // CADASTRO
+        // =========================
 
         document
         .getElementById("formCadastro")
@@ -179,17 +189,30 @@
 
             e.preventDefault();
 
+
             const nome =
-                document.getElementById("cadastroNome").value;
+                document
+                .getElementById("cadastroNome")
+                .value
+                .trim();
+
 
             const email =
-                document.getElementById("cadastroEmail").value;
+                document
+                .getElementById("cadastroEmail")
+                .value
+                .trim();
+
 
             const senha =
-                document.getElementById("cadastroSenha").value;
+                document
+                .getElementById("cadastroSenha")
+                .value;
 
 
             try {
+
+                // CRIA A CONTA
 
                 const userCredential =
                     await createUserWithEmailAndPassword(
@@ -198,21 +221,32 @@
                         senha
                     );
 
+
                 const user = userCredential.user;
 
 
-                // SALVA DADOS NO FIRESTORE
+                // SALVA OS DADOS NO FIRESTORE
 
                 await setDoc(
                     doc(db, "usuarios", user.uid),
                     {
+
                         nome: nome,
+
                         email: email
+
                     }
                 );
 
 
-                alert("Usuário cadastrado!");
+                alert("Usuário cadastrado com sucesso!");
+
+
+                // LIMPA O FORMULÁRIO
+
+                document
+                    .getElementById("formCadastro")
+                    .reset();
 
 
             } catch (error) {
@@ -224,7 +258,9 @@
         });
 
 
+        // =========================
         // LOGIN
+        // =========================
 
         document
         .getElementById("formLogin")
@@ -232,11 +268,18 @@
 
             e.preventDefault();
 
+
             const email =
-                document.getElementById("loginEmail").value;
+                document
+                .getElementById("loginEmail")
+                .value
+                .trim();
+
 
             const senha =
-                document.getElementById("loginSenha").value;
+                document
+                .getElementById("loginSenha")
+                .value;
 
 
             try {
@@ -247,6 +290,8 @@
                     senha
                 );
 
+
+                // LOGIN REALIZADO
 
                 window.location.href = "site.html";
 
@@ -259,83 +304,9 @@
 
         });
 
-
-        // DELETE DA CONTA
-
-        document
-        .getElementById("formDelete")
-        .addEventListener("submit", async (e) => {
-
-            e.preventDefault();
-
-
-            // VERIFICA SE EXISTE USUÁRIO LOGADO
-
-            const user = auth.currentUser;
-
-
-            if (!user) {
-
-                alert("Você precisa estar logado para excluir sua conta.");
-
-                return;
-
-            }
-
-
-            // CONFIRMAÇÃO
-
-            const confirmar = confirm(
-                "ATENÇÃO!\n\n" +
-                "Tem certeza que deseja excluir sua conta?\n\n" +
-                "Essa ação não poderá ser desfeita."
-            );
-
-
-            if (!confirmar) {
-
-                return;
-
-            }
-
-
-            try {
-
-                // 1. APAGA OS DADOS DO FIRESTORE
-
-                await deleteDoc(
-                    doc(db, "usuarios", user.uid)
-                );
-
-
-                // 2. APAGA A CONTA DO FIREBASE AUTHENTICATION
-
-                await deleteUser(user);
-
-
-                alert("Conta excluída com sucesso!");
-
-
-                // VOLTA PARA A PÁGINA DE LOGIN
-
-                window.location.href = "index.html";
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Não foi possível excluir a conta.\n\n" +
-                    error.message
-                );
-
-            }
-
-        });
-
     </script>
 
 </body>
+
 </html>
 ```
