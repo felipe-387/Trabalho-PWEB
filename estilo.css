@@ -3,7 +3,11 @@ body {
     margin: 1px;
     width: 100%;
     height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #eeeeee;
 }
+
+/* HEADER */
 
 header {
     width: 100%;
@@ -14,6 +18,8 @@ header {
     padding: 5px;
 }
 
+/* MENU */
+
 nav {
     background-color: #eeeeee;
     height: 20px;
@@ -23,6 +29,8 @@ nav {
     word-spacing: 5.2em;
 }
 
+/* CONTEÚDO */
+
 section {
     height: 800px;
     width: 1000px;
@@ -31,6 +39,8 @@ section {
     text-align: center;
 }
 
+/* LATERAL */
+
 aside {
     height: 800px;
     width: 150px;
@@ -38,6 +48,8 @@ aside {
     float: right;
     padding: 5px;
 }
+
+/* RODAPÉ */
 
 footer {
     width: 100%;
@@ -54,12 +66,12 @@ footer {
 
 form {
     width: 400px;
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 fieldset {
     background-color: white;
-    border: 1px solid #aaa;
+    border: 1px solid #999;
     border-radius: 8px;
     padding: 20px;
 }
@@ -67,7 +79,7 @@ fieldset {
 legend {
     font-size: 20px;
     font-weight: bold;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 p {
@@ -76,18 +88,33 @@ p {
 
 label {
     display: block;
+    text-align: left;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
+
+/* CAMPOS */
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
-    padding: 8px;
+    width: 95%;
+    padding: 10px;
     border: 1px solid #999;
     border-radius: 4px;
+    font-size: 15px;
 }
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: black;
+}
+
+
+/* BOTÕES */
 
 button {
     padding: 10px 20px;
@@ -96,11 +123,15 @@ button {
     background-color: black;
     color: white;
     cursor: pointer;
+    font-weight: bold;
 }
 
 button:hover {
     background-color: #444;
 }
+
+
+/* BOTÃO LIMPAR */
 
 input[type="reset"] {
     padding: 10px 20px;
@@ -114,24 +145,5 @@ input[type="reset"] {
 
 input[type="reset"]:hover {
     background-color: #777;
-}
-
-
-/* BOTÃO DE DELETE */
-
-#formDelete fieldset {
-    border-color: #cc0000;
-}
-
-#formDelete legend {
-    color: #cc0000;
-}
-
-#formDelete button {
-    background-color: #cc0000;
-}
-
-#formDelete button:hover {
-    background-color: #990000;
 }
 ```
