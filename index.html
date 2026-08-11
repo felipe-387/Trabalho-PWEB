@@ -114,7 +114,7 @@
     </form>
 
 
-    <!-- DELETAR REGISTRO -->
+    <!-- ADMINISTRADOR -->
 
     <form id="formDelete">
 
@@ -125,14 +125,19 @@
             </legend>
 
             <p>
-                <label>UID do registro:</label>
+                <label>Escolha o usuário:</label>
 
-                <input
-                    type="text"
-                    id="deleteUID"
-                    placeholder="Digite o UID"
+                <select
+                    id="deleteUsuario"
                     required
                 >
+
+                    <option value="">
+                        Carregando usuários...
+                    </option>
+
+                </select>
+
             </p>
 
             <center>
@@ -176,7 +181,9 @@
             getFirestore,
             doc,
             setDoc,
-            deleteDoc
+            deleteDoc,
+            collection,
+            getDocs
 
         }
 
@@ -259,7 +266,7 @@
                 const user = userCredential.user;
 
 
-                // SALVA NO FIRESTORE
+                // SALVA OS DADOS NO FIRESTORE
 
                 await setDoc(
 
@@ -280,12 +287,19 @@
                 );
 
 
-                alert("Usuário cadastrado com sucesso!");
+                alert(
+                    "Usuário cadastrado com sucesso!"
+                );
 
 
                 document
                     .getElementById("formCadastro")
                     .reset();
+
+
+                // ATUALIZA A LISTA DE USUÁRIOS
+
+                carregarUsuarios();
 
 
             } catch (error) {
@@ -332,7 +346,8 @@
                 );
 
 
-                window.location.href = "site.html";
+                window.location.href =
+                    "site.html";
 
 
             } catch (error) {
@@ -345,7 +360,121 @@
 
 
         // =========================
-        // DELETAR REGISTRO
+        // CARREGAR USUÁRIOS
+        // =========================
+
+        async function carregarUsuarios() {
+
+            const select =
+                document
+                .getElementById("deleteUsuario");
+
+
+            try {
+
+                const usuariosRef =
+                    collection(
+                        db,
+                        "usuarios"
+                    );
+
+
+                const resultado =
+                    await getDocs(
+                        usuariosRef
+                    );
+
+
+                // LIMPA A LISTA
+
+                select.innerHTML = "";
+
+
+                // CASO NÃO TENHA USUÁRIOS
+
+                if (resultado.empty) {
+
+                    const opcao =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    opcao.value = "";
+
+                    opcao.textContent =
+                        "Nenhum usuário cadastrado";
+
+
+                    select.appendChild(
+                        opcao
+                    );
+
+
+                    return;
+
+                }
+
+
+                // ADICIONA OS USUÁRIOS
+
+                resultado.forEach(
+                    (usuario) => {
+
+                        const dados =
+                            usuario.data();
+
+
+                        const opcao =
+                            document.createElement(
+                                "option"
+                            );
+
+
+                        // GUARDA O UID
+
+                        opcao.value =
+                            usuario.id;
+
+
+                        // MOSTRA NOME E EMAIL
+
+                        opcao.textContent =
+                            dados.nome +
+                            " - " +
+                            dados.email;
+
+
+                        select.appendChild(
+                            opcao
+                        );
+
+                    }
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                select.innerHTML =
+                    "<option>" +
+                    "Erro ao carregar usuários" +
+                    "</option>";
+
+            }
+
+        }
+
+
+        // CARREGAR USUÁRIOS AO ABRIR
+
+        carregarUsuarios();
+
+
+        // =========================
+        // DELETAR USUÁRIO
         // =========================
 
         document
@@ -355,27 +484,43 @@
             e.preventDefault();
 
 
-            const uid =
+            const select =
                 document
-                .getElementById("deleteUID")
-                .value
-                .trim();
+                .getElementById(
+                    "deleteUsuario"
+                );
 
 
-            if (uid === "") {
+            const uid =
+                select.value;
 
-                alert("Digite o UID do registro.");
+
+            if (!uid) {
+
+                alert(
+                    "Selecione um usuário."
+                );
 
                 return;
 
             }
 
 
-            const confirmar = confirm(
+            const nome =
+                select.options[
+                    select.selectedIndex
+                ].text;
 
-                "Tem certeza que deseja deletar este registro?"
 
-            );
+            const confirmar =
+                confirm(
+
+                    "Tem certeza que deseja " +
+                    "deletar:\n\n" +
+                    nome +
+                    "?"
+
+                );
 
 
             if (!confirmar) {
@@ -387,7 +532,7 @@
 
             try {
 
-                // DELETA SOMENTE O REGISTRO INFORMADO
+                // DELETA SOMENTE O USUÁRIO SELECIONADO
 
                 await deleteDoc(
 
@@ -400,20 +545,23 @@
                 );
 
 
-                alert("Registro deletado com sucesso!");
+                alert(
+                    "Usuário deletado com sucesso!"
+                );
 
 
-                document
-                    .getElementById("formDelete")
-                    .reset();
+                // ATUALIZA A LISTA
+
+                carregarUsuarios();
 
 
             } catch (error) {
 
                 console.error(error);
 
+
                 alert(
-                    "Erro ao deletar o registro: " +
+                    "Erro ao deletar usuário: " +
                     error.message
                 );
 
