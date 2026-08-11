@@ -7,6 +7,7 @@ body {
     background-color: #eeeeee;
 }
 
+
 /* HEADER */
 
 header {
@@ -17,6 +18,7 @@ header {
     text-align: center;
     padding: 5px;
 }
+
 
 /* MENU */
 
@@ -29,7 +31,8 @@ nav {
     word-spacing: 5.2em;
 }
 
-/* CONTEÚDO */
+
+/* SECTION */
 
 section {
     height: 800px;
@@ -39,7 +42,8 @@ section {
     text-align: center;
 }
 
-/* LATERAL */
+
+/* ASIDE */
 
 aside {
     height: 800px;
@@ -49,7 +53,8 @@ aside {
     padding: 5px;
 }
 
-/* RODAPÉ */
+
+/* FOOTER */
 
 footer {
     width: 100%;
@@ -62,25 +67,34 @@ footer {
 }
 
 
-/* LOGIN E CADASTRO */
+/* FORMULÁRIOS */
 
 form {
     width: 400px;
-    margin: 30px auto;
+    margin: 25px auto;
 }
+
+
+/* CAIXAS */
 
 fieldset {
     background-color: white;
-    border: 1px solid #999;
+    border: 1px solid #999999;
     border-radius: 8px;
     padding: 20px;
 }
+
+
+/* TÍTULOS */
 
 legend {
     font-size: 20px;
     font-weight: bold;
     padding: 5px 10px;
 }
+
+
+/* TEXTOS */
 
 p {
     margin: 15px 0;
@@ -101,7 +115,7 @@ input[type="email"],
 input[type="password"] {
     width: 95%;
     padding: 10px;
-    border: 1px solid #999;
+    border: 1px solid #999999;
     border-radius: 4px;
     font-size: 15px;
 }
@@ -127,7 +141,7 @@ button {
 }
 
 button:hover {
-    background-color: #444;
+    background-color: #444444;
 }
 
 
@@ -138,12 +152,31 @@ input[type="reset"] {
     margin-left: 5px;
     border: none;
     border-radius: 4px;
-    background-color: #999;
+    background-color: #999999;
     color: white;
     cursor: pointer;
 }
 
 input[type="reset"]:hover {
-    background-color: #777;
+    background-color: #777777;
+}
+
+
+/* ÁREA DE DELETAR */
+
+#delete {
+    border-color: #cc0000;
+}
+
+#delete legend {
+    color: #cc0000;
+}
+
+#delete button {
+    background-color: #cc0000;
+}
+
+#delete button:hover {
+    background-color: #990000;
 }
 ```
