@@ -114,10 +114,45 @@
     </form>
 
 
+    <!-- DELETAR REGISTRO -->
+
+    <form id="formDelete">
+
+        <fieldset id="delete">
+
+            <legend>
+                ADMINISTRADOR - DELETAR REGISTRO
+            </legend>
+
+            <p>
+                <label>UID do registro:</label>
+
+                <input
+                    type="text"
+                    id="deleteUID"
+                    placeholder="Digite o UID"
+                    required
+                >
+            </p>
+
+            <center>
+
+                <button type="submit">
+                    DELETAR REGISTRO
+                </button>
+
+            </center>
+
+        </fieldset>
+
+    </form>
+
+
     <script type="module">
 
+
         // =========================
-        // IMPORTAÇÕES DO FIREBASE
+        // IMPORTAÇÕES FIREBASE
         // =========================
 
         import { initializeApp }
@@ -140,7 +175,8 @@
 
             getFirestore,
             doc,
-            setDoc
+            setDoc,
+            deleteDoc
 
         }
 
@@ -148,7 +184,7 @@
 
 
         // =========================
-        // CONFIGURAÇÃO DO FIREBASE
+        // CONFIGURAÇÃO FIREBASE
         // =========================
 
         const firebaseConfig = {
@@ -212,8 +248,6 @@
 
             try {
 
-                // CRIA A CONTA
-
                 const userCredential =
                     await createUserWithEmailAndPassword(
                         auth,
@@ -225,10 +259,16 @@
                 const user = userCredential.user;
 
 
-                // SALVA OS DADOS NO FIRESTORE
+                // SALVA NO FIRESTORE
 
                 await setDoc(
-                    doc(db, "usuarios", user.uid),
+
+                    doc(
+                        db,
+                        "usuarios",
+                        user.uid
+                    ),
+
                     {
 
                         nome: nome,
@@ -236,13 +276,12 @@
                         email: email
 
                     }
+
                 );
 
 
                 alert("Usuário cadastrado com sucesso!");
 
-
-                // LIMPA O FORMULÁRIO
 
                 document
                     .getElementById("formCadastro")
@@ -285,13 +324,13 @@
             try {
 
                 await signInWithEmailAndPassword(
+
                     auth,
                     email,
                     senha
+
                 );
 
-
-                // LOGIN REALIZADO
 
                 window.location.href = "site.html";
 
@@ -299,6 +338,84 @@
             } catch (error) {
 
                 alert(error.message);
+
+            }
+
+        });
+
+
+        // =========================
+        // DELETAR REGISTRO
+        // =========================
+
+        document
+        .getElementById("formDelete")
+        .addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+
+            const uid =
+                document
+                .getElementById("deleteUID")
+                .value
+                .trim();
+
+
+            if (uid === "") {
+
+                alert("Digite o UID do registro.");
+
+                return;
+
+            }
+
+
+            const confirmar = confirm(
+
+                "Tem certeza que deseja deletar este registro?"
+
+            );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+                // DELETA SOMENTE O REGISTRO INFORMADO
+
+                await deleteDoc(
+
+                    doc(
+                        db,
+                        "usuarios",
+                        uid
+                    )
+
+                );
+
+
+                alert("Registro deletado com sucesso!");
+
+
+                document
+                    .getElementById("formDelete")
+                    .reset();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Erro ao deletar o registro: " +
+                    error.message
+                );
 
             }
 
