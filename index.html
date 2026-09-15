@@ -5,6 +5,8 @@
 
     <meta charset="utf-8">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="estilo.css">
 
     <title>PÁGINA DE LOGIN</title>
@@ -23,21 +25,26 @@
             <legend>LOGIN</legend>
 
             <p>
-                <label>Login (Email):</label>
+                <label for="loginEmail">Login (Email):</label>
 
                 <input
                     type="email"
                     id="loginEmail"
+                    maxlength="120"
+                    autocomplete="email"
                     required
                 >
             </p>
 
             <p>
-                <label>SENHA:</label>
+                <label for="loginSenha">Senha:</label>
 
                 <input
                     type="password"
                     id="loginSenha"
+                    minlength="6"
+                    maxlength="128"
+                    autocomplete="current-password"
                     required
                 >
             </p>
@@ -66,31 +73,38 @@
             </legend>
 
             <p>
-                <label>Nome:</label>
+                <label for="cadastroNome">Nome:</label>
 
                 <input
                     type="text"
                     id="cadastroNome"
+                    maxlength="80"
+                    autocomplete="name"
                     required
                 >
             </p>
 
             <p>
-                <label>Email:</label>
+                <label for="cadastroEmail">Email:</label>
 
                 <input
                     type="email"
                     id="cadastroEmail"
+                    maxlength="120"
+                    autocomplete="email"
                     required
                 >
             </p>
 
             <p>
-                <label>Senha:</label>
+                <label for="cadastroSenha">Senha:</label>
 
                 <input
                     type="password"
                     id="cadastroSenha"
+                    minlength="6"
+                    maxlength="128"
+                    autocomplete="new-password"
                     required
                 >
             </p>
@@ -124,7 +138,10 @@
             </legend>
 
             <p>
-                <label>Escolha o usuário:</label>
+
+                <label for="deleteUsuario">
+                    Escolha o usuário:
+                </label>
 
                 <select
                     id="deleteUsuario"
@@ -141,7 +158,6 @@
 
             <center>
 
-                <!-- BOTÃO ALTERAR -->
                 <button
                     type="button"
                     id="btnAlterar"
@@ -149,7 +165,6 @@
                     ALTERAR
                 </button>
 
-                <!-- BOTÃO DELETAR -->
                 <button type="submit">
                     DELETAR REGISTRO
                 </button>
@@ -168,7 +183,9 @@
         // IMPORTAÇÕES FIREBASE
         // =========================
 
-        import { initializeApp }
+        import {
+            initializeApp
+        }
 
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -191,7 +208,9 @@
             setDoc,
             deleteDoc,
             collection,
-            getDocs
+            getDocs,
+            query,
+            where
 
         }
 
@@ -231,6 +250,62 @@
 
 
         // =========================
+        // SANITIZAÇÃO
+        // =========================
+
+        function sanitizarTexto(valor) {
+
+            return valor
+                .trim()
+                .replace(/\s+/g, " ");
+
+        }
+
+
+        // =========================
+        // VALIDAÇÃO DO NOME
+        // =========================
+
+        function validarNome(nome) {
+
+            return (
+                nome.length >= 2 &&
+                nome.length <= 80 &&
+                !/[<>]/.test(nome)
+            );
+
+        }
+
+
+        // =========================
+        // VALIDAÇÃO DO EMAIL
+        // =========================
+
+        function validarEmail(email) {
+
+            return (
+                email.length <= 120 &&
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+            );
+
+        }
+
+
+        // =========================
+        // VALIDAÇÃO DA SENHA
+        // =========================
+
+        function validarSenha(senha) {
+
+            return (
+                senha.length >= 6 &&
+                senha.length <= 128
+            );
+
+        }
+
+
+        // =========================
         // CADASTRO
         // =========================
 
@@ -242,17 +317,19 @@
 
 
             const nome =
-                document
-                .getElementById("cadastroNome")
-                .value
-                .trim();
+                sanitizarTexto(
+                    document
+                    .getElementById("cadastroNome")
+                    .value
+                );
 
 
             const email =
                 document
                 .getElementById("cadastroEmail")
                 .value
-                .trim();
+                .trim()
+                .toLowerCase();
 
 
             const senha =
@@ -261,7 +338,51 @@
                 .value;
 
 
+            // VALIDAÇÃO
+
+            if (!validarNome(nome)) {
+
+                alert(
+                    "Nome inválido. Use entre 2 e 80 caracteres."
+                );
+
+                return;
+
+            }
+
+
+            if (!validarEmail(email)) {
+
+                alert(
+                    "Digite um e-mail válido."
+                );
+
+                return;
+
+            }
+
+
+            if (!validarSenha(senha)) {
+
+                alert(
+                    "A senha deve ter entre 6 e 128 caracteres."
+                );
+
+                return;
+
+            }
+
+
             try {
+
+                /*
+                 * SEGURANÇA:
+                 *
+                 * A senha NÃO é salva no Firestore.
+                 *
+                 * O Firebase Authentication é responsável
+                 * pelo armazenamento seguro da credencial.
+                 */
 
                 const userCredential =
                     await createUserWithEmailAndPassword(
@@ -271,10 +392,11 @@
                     );
 
 
-                const user = userCredential.user;
+                const user =
+                    userCredential.user;
 
 
-                // SALVA OS DADOS NO FIRESTORE
+                // PERSISTÊNCIA DE DADOS
 
                 await setDoc(
 
@@ -305,14 +427,17 @@
                     .reset();
 
 
-                // ATUALIZA A LISTA DE USUÁRIOS
-
                 carregarUsuarios();
 
 
             } catch (error) {
 
-                alert(error.message);
+                console.error(error);
+
+                alert(
+                    "Erro ao cadastrar: " +
+                    error.message
+                );
 
             }
 
@@ -334,13 +459,36 @@
                 document
                 .getElementById("loginEmail")
                 .value
-                .trim();
+                .trim()
+                .toLowerCase();
 
 
             const senha =
                 document
                 .getElementById("loginSenha")
                 .value;
+
+
+            if (!validarEmail(email)) {
+
+                alert(
+                    "Digite um e-mail válido."
+                );
+
+                return;
+
+            }
+
+
+            if (!validarSenha(senha)) {
+
+                alert(
+                    "Senha inválida."
+                );
+
+                return;
+
+            }
 
 
             try {
@@ -360,7 +508,12 @@
 
             } catch (error) {
 
-                alert(error.message);
+                console.error(error);
+
+                alert(
+                    "Erro ao fazer login: " +
+                    error.message
+                );
 
             }
 
@@ -368,6 +521,7 @@
 
 
         // =========================
+        // READ
         // CARREGAR USUÁRIOS
         // =========================
 
@@ -375,7 +529,9 @@
 
             const select =
                 document
-                .getElementById("deleteUsuario");
+                .getElementById(
+                    "deleteUsuario"
+                );
 
 
             try {
@@ -393,12 +549,8 @@
                     );
 
 
-                // LIMPA A LISTA
-
                 select.innerHTML = "";
 
-
-                // CASO NÃO TENHA USUÁRIOS
 
                 if (resultado.empty) {
 
@@ -424,8 +576,6 @@
                 }
 
 
-                // ADICIONA OS USUÁRIOS
-
                 resultado.forEach(
                     (usuario) => {
 
@@ -439,18 +589,32 @@
                             );
 
 
-                        // GUARDA O UID
-
                         opcao.value =
                             usuario.id;
 
 
-                        // MOSTRA NOME E EMAIL
+                        /*
+                         * PROTEÇÃO CONTRA XSS
+                         *
+                         * textContent trata o conteúdo
+                         * como texto e não como HTML.
+                         */
 
                         opcao.textContent =
-                            dados.nome +
-                            " - " +
-                            dados.email;
+
+                            sanitizarTexto(
+                                dados.nome || ""
+                            )
+
+                            +
+
+                            " - "
+
+                            +
+
+                            sanitizarTexto(
+                                dados.email || ""
+                            );
 
 
                         select.appendChild(
@@ -466,267 +630,389 @@
                 console.error(error);
 
 
-                select.innerHTML =
-                    "<option>" +
-                    "Erro ao carregar usuários" +
-                    "</option>";
+                select.innerHTML = "";
+
+
+                const opcao =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                opcao.value = "";
+
+                opcao.textContent =
+                    "Erro ao carregar usuários";
+
+
+                select.appendChild(
+                    opcao
+                );
 
             }
 
         }
 
 
-        // =========================
-        // CARREGAR USUÁRIOS AO ABRIR
-        // =========================
+        // CARREGAR AO ABRIR
 
         carregarUsuarios();
 
 
         // =========================
-        // ALTERAR USUÁRIO
+        // WHERE
+        // CONSULTA PARAMETRIZADA
         // =========================
 
-        document
-        .getElementById("btnAlterar")
-        .addEventListener("click", async () => {
+        async function usuarioExistePorEmail(email) {
 
-            const select =
-                document.getElementById(
-                    "deleteUsuario"
-                );
+            const emailSeguro =
+                email
+                .trim()
+                .toLowerCase();
 
 
-            const uid =
-                select.value;
+            /*
+             * CONSULTA COM WHERE
+             *
+             * O valor é passado como parâmetro
+             * para a consulta.
+             *
+             * Não existe montagem de SQL.
+             *
+             * Equivalente conceitual:
+             *
+             * SELECT *
+             * FROM usuarios
+             * WHERE email = ?
+             */
 
+            const consulta =
+                query(
 
-            if (!uid) {
-
-                alert(
-                    "Selecione um usuário."
-                );
-
-                return;
-
-            }
-
-
-            try {
-
-                // PEGA O USUÁRIO SELECIONADO
-
-                const textoUsuario =
-                    select.options[
-                        select.selectedIndex
-                    ].text;
-
-
-                const partes =
-                    textoUsuario.split(" - ");
-
-
-                const nomeAtual =
-                    partes[0];
-
-
-                const emailAtual =
-                    partes.slice(1).join(" - ");
-
-
-                // NOVO NOME
-
-                const novoNome =
-                    prompt(
-                        "Digite o novo nome:",
-                        nomeAtual
-                    );
-
-
-                if (novoNome === null) {
-
-                    return;
-
-                }
-
-
-                // NOVO EMAIL
-
-                const novoEmail =
-                    prompt(
-                        "Digite o novo email:",
-                        emailAtual
-                    );
-
-
-                if (novoEmail === null) {
-
-                    return;
-
-                }
-
-
-                // VERIFICA CAMPOS
-
-                if (
-                    !novoNome.trim() ||
-                    !novoEmail.trim()
-                ) {
-
-                    alert(
-                        "Nome e email não podem ficar vazios."
-                    );
-
-                    return;
-
-                }
-
-
-                // ATUALIZA O FIRESTORE
-
-                await setDoc(
-
-                    doc(
+                    collection(
                         db,
-                        "usuarios",
-                        uid
+                        "usuarios"
                     ),
 
-                    {
-
-                        nome: novoNome.trim(),
-
-                        email: novoEmail.trim()
-
-                    },
-
-                    {
-
-                        merge: true
-
-                    }
-
-                );
-
-
-                alert(
-                    "Usuário alterado com sucesso!"
-                );
-
-
-                // ATUALIZA A LISTA
-
-                carregarUsuarios();
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Erro ao alterar usuário: " +
-                    error.message
-                );
-
-            }
-
-        });
-
-
-        // =========================
-        // DELETAR USUÁRIO
-        // =========================
-
-        document
-        .getElementById("formDelete")
-        .addEventListener("submit", async (e) => {
-
-            e.preventDefault();
-
-
-            const select =
-                document.getElementById(
-                    "deleteUsuario"
-                );
-
-
-            const uid =
-                select.value;
-
-
-            if (!uid) {
-
-                alert(
-                    "Selecione um usuário."
-                );
-
-                return;
-
-            }
-
-
-            const nome =
-                select.options[
-                    select.selectedIndex
-                ].text;
-
-
-            const confirmar =
-                confirm(
-
-                    "Tem certeza que deseja " +
-                    "deletar:\n\n" +
-                    nome +
-                    "?"
-
-                );
-
-
-            if (!confirmar) {
-
-                return;
-
-            }
-
-
-            try {
-
-                // DELETA SOMENTE O USUÁRIO SELECIONADO
-
-                await deleteDoc(
-
-                    doc(
-                        db,
-                        "usuarios",
-                        uid
+                    where(
+                        "email",
+                        "==",
+                        emailSeguro
                     )
 
                 );
 
 
-                alert(
-                    "Usuário deletado com sucesso!"
+            const resultado =
+                await getDocs(
+                    consulta
                 );
 
 
-                // ATUALIZA A LISTA
+            return !resultado.empty;
 
-                carregarUsuarios();
-
-
-            } catch (error) {
-
-                console.error(error);
+        }
 
 
-                alert(
-                    "Erro ao deletar usuário: " +
-                    error.message
-                );
+        // =========================
+        // UPDATE
+        // ALTERAR USUÁRIO
+        // =========================
+
+        document
+        .getElementById("btnAlterar")
+        .addEventListener(
+            "click",
+            async () => {
+
+                const select =
+                    document
+                    .getElementById(
+                        "deleteUsuario"
+                    );
+
+
+                const uid =
+                    select.value;
+
+
+                if (!uid) {
+
+                    alert(
+                        "Selecione um usuário."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const textoUsuario =
+                        select
+                        .options[
+                            select.selectedIndex
+                        ]
+                        .text;
+
+
+                    const partes =
+                        textoUsuario.split(
+                            " - "
+                        );
+
+
+                    const nomeAtual =
+                        partes[0] || "";
+
+
+                    const emailAtual =
+                        partes
+                        .slice(1)
+                        .join(" - ");
+
+
+                    const novoNome =
+                        prompt(
+                            "Digite o novo nome:",
+                            nomeAtual
+                        );
+
+
+                    if (
+                        novoNome === null
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const novoEmail =
+                        prompt(
+                            "Digite o novo email:",
+                            emailAtual
+                        );
+
+
+                    if (
+                        novoEmail === null
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    // SANITIZAÇÃO
+
+                    const nome =
+                        sanitizarTexto(
+                            novoNome
+                        );
+
+
+                    const email =
+                        novoEmail
+                        .trim()
+                        .toLowerCase();
+
+
+                    // VALIDAÇÃO
+
+                    if (!validarNome(nome)) {
+
+                        alert(
+                            "Nome inválido."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (!validarEmail(email)) {
+
+                        alert(
+                            "E-mail inválido."
+                        );
+
+                        return;
+
+                    }
+
+
+                    // WHERE
+
+                    const existe =
+                        await usuarioExistePorEmail(
+                            email
+                        );
+
+
+                    if (
+                        existe &&
+                        email !==
+                        emailAtual.toLowerCase()
+                    ) {
+
+                        alert(
+                            "Já existe um usuário cadastrado com esse e-mail."
+                        );
+
+                        return;
+
+                    }
+
+
+                    // PERSISTÊNCIA / UPDATE
+
+                    await setDoc(
+
+                        doc(
+                            db,
+                            "usuarios",
+                            uid
+                        ),
+
+                        {
+
+                            nome: nome,
+
+                            email: email
+
+                        },
+
+                        {
+
+                            merge: true
+
+                        }
+
+                    );
+
+
+                    alert(
+                        "Usuário alterado com sucesso!"
+                    );
+
+
+                    carregarUsuarios();
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Erro ao alterar usuário: " +
+                        error.message
+                    );
+
+                }
 
             }
+        );
 
-        });
 
+        // =========================
+        // DELETE
+        // DELETAR USUÁRIO
+        // =========================
+
+        document
+        .getElementById("formDelete")
+        .addEventListener(
+            "submit",
+            async (e) => {
+
+                e.preventDefault();
+
+
+                const select =
+                    document
+                    .getElementById(
+                        "deleteUsuario"
+                    );
+
+
+                const uid =
+                    select.value;
+
+
+                if (!uid) {
+
+                    alert(
+                        "Selecione um usuário."
+                    );
+
+                    return;
+
+                }
+
+
+                const nome =
+                    select
+                    .options[
+                        select.selectedIndex
+                    ]
+                    .text;
+
+
+                const confirmar =
+                    confirm(
+
+                        "Tem certeza que deseja " +
+                        "deletar:\n\n" +
+                        nome +
+                        "?"
+
+                    );
+
+
+                if (!confirmar) {
+
+                    return;
+
+                }
+
+
+                try {
+
+                    await deleteDoc(
+
+                        doc(
+                            db,
+                            "usuarios",
+                            uid
+                        )
+
+                    );
+
+
+                    alert(
+                        "Usuário deletado com sucesso!"
+                    );
+
+
+                    carregarUsuarios();
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+
+                    alert(
+                        "Erro ao deletar usuário: " +
+                        error.message
+                    );
+
+                }
+
+            }
+        );
 
     </script>
 
