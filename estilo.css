@@ -6,9 +6,6 @@ body {
     background-color: #eeeeee;
 }
 
-
-/* HEADER */
-
 header {
     width: 100%;
     height: 13%;
@@ -17,9 +14,6 @@ header {
     text-align: center;
     padding: 5px;
 }
-
-
-/* MENU */
 
 nav {
     background-color: #eeeeee;
@@ -30,9 +24,6 @@ nav {
     word-spacing: 5.2em;
 }
 
-
-/* SECTION */
-
 section {
     height: 800px;
     width: 1000px;
@@ -41,9 +32,6 @@ section {
     text-align: center;
 }
 
-
-/* ASIDE */
-
 aside {
     height: 800px;
     width: 150px;
@@ -51,9 +39,6 @@ aside {
     float: right;
     padding: 5px;
 }
-
-
-/* FOOTER */
 
 footer {
     width: 100%;
@@ -65,35 +50,23 @@ footer {
     padding: 5px;
 }
 
-
-/* FORMULÁRIOS */
-
 form {
     width: 400px;
     margin: 25px auto;
 }
 
-
-/* CAIXAS */
-
 fieldset {
     background-color: white;
-    border: 1px solid #999999;
+    border: 1px solid #999;
     border-radius: 8px;
     padding: 20px;
 }
-
-
-/* TÍTULOS */
 
 legend {
     font-size: 20px;
     font-weight: bold;
     padding: 5px 10px;
 }
-
-
-/* TEXTOS */
 
 p {
     margin: 15px 0;
@@ -106,15 +79,12 @@ label {
     font-weight: bold;
 }
 
-
-/* CAMPOS */
-
 input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: 95%;
     padding: 10px;
-    border: 1px solid #999999;
+    border: 1px solid #999;
     border-radius: 4px;
     font-size: 15px;
 }
@@ -122,7 +92,7 @@ input[type="password"] {
 select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #999999;
+    border: 1px solid #999;
     border-radius: 4px;
     font-size: 15px;
     background-color: white;
@@ -136,9 +106,6 @@ select:focus {
     border-color: black;
 }
 
-
-/* BOTÕES */
-
 button {
     padding: 10px 20px;
     border: none;
@@ -150,28 +117,42 @@ button {
 }
 
 button:hover {
-    background-color: #444444;
+    background-color: #444;
 }
-
-
-/* BOTÃO LIMPAR */
 
 input[type="reset"] {
     padding: 10px 20px;
     margin-left: 5px;
     border: none;
     border-radius: 4px;
-    background-color: #999999;
+    background-color: #999;
     color: white;
     cursor: pointer;
 }
 
 input[type="reset"]:hover {
-    background-color: #777777;
+    background-color: #777;
 }
 
+#areaAdmin {
+    width: 100%;
+}
 
-/* ÁREA DE ADMINISTRADOR */
+#alterar {
+    border-color: #555;
+}
+
+#alterar legend {
+    color: #555;
+}
+
+#btnAlterar {
+    background-color: #555;
+}
+
+#btnAlterar:hover {
+    background-color: #333;
+}
 
 #delete {
     border-color: #cc0000;
@@ -180,20 +161,6 @@ input[type="reset"]:hover {
 #delete legend {
     color: #cc0000;
 }
-
-
-/* BOTÃO ALTERAR */
-
-#btnAlterar {
-    background-color: #555555;
-}
-
-#btnAlterar:hover {
-    background-color: #333333;
-}
-
-
-/* BOTÃO DELETAR */
 
 #formDelete button[type="submit"] {
     background-color: #cc0000;
