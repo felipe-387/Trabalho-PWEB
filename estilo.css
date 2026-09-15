@@ -2,20 +2,20 @@ body {
     font-family: Arial, sans-serif;
     background-color: #eeeeee;
     margin: 20px;
-    color: #111111;
+    color: #111;
 }
 
-/* FORMULÁRIOS PRINCIPAIS */
+/* TODOS OS FORMULÁRIOS UM EMBAIXO DO OUTRO */
 form {
     width: 400px;
-    margin: 20px auto;
+    margin: 20px 0;
 }
 
 fieldset {
     background-color: white;
-    border: 1px solid #999999;
+    border: 1px solid #999;
     border-radius: 8px;
-    padding: 20px;
+    padding: 15px;
 }
 
 legend {
@@ -30,7 +30,6 @@ p {
 
 label {
     display: block;
-    text-align: left;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -40,44 +39,43 @@ input[type="email"],
 input[type="password"],
 select {
     width: 95%;
-    padding: 10px;
-    border: 1px solid #999999;
-    border-radius: 4px;
+    padding: 8px;
     box-sizing: border-box;
+    border: 1px solid #aaa;
+    border-radius: 4px;
 }
 
-/* BOTÕES */
 button {
-    background-color: #222222;
+    background-color: #222;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 9px 14px;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #444444;
+    background-color: #444;
 }
 
 input[type="reset"] {
     width: 95%;
-    padding: 10px;
+    padding: 9px;
     border: none;
     border-radius: 4px;
-    background-color: #dddddd;
+    background-color: #ddd;
     font-weight: bold;
     cursor: pointer;
 }
 
-/* ============================= */
-/* USUÁRIOS CADASTRADOS          */
-/* ============================= */
+/* ========================= */
+/* USUÁRIOS                   */
+/* ========================= */
 
 #usuariosContainer {
-    width: 95%;
-    margin: 35px auto;
+    width: 400px;
+    margin-top: 25px;
 }
 
 #usuariosContainer h2 {
@@ -88,104 +86,65 @@ input[type="reset"] {
     margin-top: 15px;
 }
 
-/* LISTA BLOQUEADA */
 #listaUsuarios.borrado {
     filter: blur(7px);
     user-select: none;
     pointer-events: none;
 }
 
-/* CARD DE CADA USUÁRIO */
 .usuario {
     background-color: white;
-    border: 1px solid #999999;
+    border: 1px solid #999;
     border-radius: 6px;
-    padding: 12px;
+    padding: 10px;
     margin-bottom: 10px;
-    width: 400px;
 }
 
-.usuario strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* ============================= */
-/* ACESSO ADMINISTRATIVO         */
-/* ============================= */
+/* ========================= */
+/* ACESSO ADMINISTRATIVO      */
+/* ========================= */
 
 #areaDesbloqueio {
     width: 400px;
-    margin: 30px 0 30px 20px;
+    margin-top: 25px;
 }
 
-#areaDesbloqueio fieldset {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#areaDesbloqueio p {
-    text-align: left;
-}
-
-/* O formulário interno NÃO ganha
-   outra caixa branca */
 #formDesbloquear {
     width: auto;
     margin: 0;
     padding: 0;
 }
 
-/* STATUS */
 #statusAdmin {
-    margin-top: 15px;
+    margin-top: 10px;
     font-weight: bold;
 }
 
-/* ============================= */
-/* ÁREA ADMIN LIBERADA           */
-/* ============================= */
+/* ========================= */
+/* ÁREA ADMIN                 */
+/* ========================= */
 
 #areaAdminLiberada {
-    width: 95%;
-    margin: 30px auto;
+    width: 400px;
+    margin-top: 25px;
 }
 
 #areaAdminLiberada form {
+    width: 400px;
     margin: 20px 0;
 }
 
-/* ÁREA DE EXCLUSÃO */
-#formExcluir {
-    border: 1px solid #999999;
-}
-
-#formExcluir button {
-    background-color: #222222;
-}
-
-/* ============================= */
-/* RESPONSIVO                    */
-/* ============================= */
+/* ========================= */
+/* CELULAR                    */
+/* ========================= */
 
 @media (max-width: 500px) {
-
-    form {
-        width: 100%;
-    }
-
-    #areaDesbloqueio {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    .usuario {
+    form,
+    #usuariosContainer,
+    #areaDesbloqueio,
+    #areaAdminLiberada,
+    #areaAdminLiberada form {
         width: 100%;
         box-sizing: border-box;
-    }
-
-    #usuariosContainer,
-    #areaAdminLiberada {
-        width: 100%;
     }
 }
