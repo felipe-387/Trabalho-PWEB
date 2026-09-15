@@ -5,107 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Cadastro e Usuários</title>
+    <title>Sistema CRUD</title>
 
     <link rel="stylesheet" href="estilo.css">
-
-    <style>
-        /* ==============================
-           ÁREA DE USUÁRIOS
-        ============================== */
-
-        #usuariosContainer {
-            margin-top: 20px;
-        }
-
-        #listaUsuarios {
-            transition: filter 0.3s ease;
-        }
-
-        /* Usuários ficam borrados inicialmente */
-        #listaUsuarios.borrado {
-            filter: blur(7px);
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .usuario-item {
-            background-color: white;
-            border: 1px solid #aaa;
-            border-radius: 6px;
-            padding: 12px;
-            margin: 8px 0;
-            text-align: left;
-        }
-
-        /* ==============================
-           ADMIN
-        ============================== */
-
-        #areaDesbloqueio {
-            margin-top: 25px;
-        }
-
-        #areaAdmin {
-            display: none;
-            margin-top: 25px;
-        }
-
-        #areaAdmin fieldset {
-            border-color: #555;
-        }
-
-        #areaAdminLiberada {
-            display: none;
-        }
-
-        #statusAdmin {
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .admin-liberado {
-            color: green;
-        }
-
-        .admin-bloqueado {
-            color: #cc0000;
-        }
-
-        #formDelete {
-            margin-top: 20px;
-        }
-
-        #formDelete button {
-            background-color: #cc0000;
-        }
-
-        #formDelete button:hover {
-            background-color: #990000;
-        }
-    </style>
-
 </head>
 
 <body>
 
-
-    <!-- ==========================================
-         CADASTRO
-    =========================================== -->
+    <!-- =====================================================
+         CADASTRO DE USUÁRIO
+    ====================================================== -->
 
     <form id="formCadastro">
 
         <fieldset>
 
-            <legend>
-                CADASTRO
-            </legend>
+            <legend>CADASTRO</legend>
 
             <p>
-                <label for="nome">
-                    Nome:
-                </label>
+                <label for="nome">Nome:</label>
 
                 <input
                     type="text"
@@ -117,11 +35,8 @@
                 >
             </p>
 
-
             <p>
-                <label for="email">
-                    Email:
-                </label>
+                <label for="email">Email:</label>
 
                 <input
                     type="email"
@@ -132,11 +47,8 @@
                 >
             </p>
 
-
             <p>
-                <label for="senha">
-                    Senha:
-                </label>
+                <label for="senha">Senha:</label>
 
                 <input
                     type="password"
@@ -148,7 +60,6 @@
                 >
             </p>
 
-
             <p>
                 <button type="submit">
                     CADASTRAR
@@ -156,7 +67,7 @@
 
                 <input
                     type="reset"
-                    value="Limpar"
+                    value="LIMPAR"
                 >
             </p>
 
@@ -165,18 +76,15 @@
     </form>
 
 
-
-    <!-- ==========================================
-         LOGIN
-    =========================================== -->
+    <!-- =====================================================
+         LOGIN NORMAL
+    ====================================================== -->
 
     <form id="formLogin">
 
         <fieldset>
 
-            <legend>
-                LOGIN
-            </legend>
+            <legend>LOGIN</legend>
 
             <p>
                 <label for="loginEmail">
@@ -191,7 +99,6 @@
                     required
                 >
             </p>
-
 
             <p>
                 <label for="loginSenha">
@@ -208,7 +115,6 @@
                 >
             </p>
 
-
             <p>
                 <button type="submit">
                     FAZER LOGIN
@@ -220,40 +126,101 @@
     </form>
 
 
+    <!-- =====================================================
+         CADASTRO DO ADMINISTRADOR
+    ====================================================== -->
 
-    <!-- ==========================================
+    <form id="formCadastroAdmin">
+
+        <fieldset>
+
+            <legend>CADASTRO ADMINISTRATIVO</legend>
+
+            <p>
+                <label for="adminNome">
+                    Nome do administrador:
+                </label>
+
+                <input
+                    type="text"
+                    id="adminNome"
+                    minlength="2"
+                    maxlength="80"
+                    autocomplete="name"
+                    required
+                >
+            </p>
+
+            <p>
+                <label for="adminEmailCadastro">
+                    Email administrativo:
+                </label>
+
+                <input
+                    type="email"
+                    id="adminEmailCadastro"
+                    maxlength="120"
+                    autocomplete="off"
+                    required
+                >
+            </p>
+
+            <p>
+                <label for="adminSenhaCadastro">
+                    Senha administrativa:
+                </label>
+
+                <input
+                    type="password"
+                    id="adminSenhaCadastro"
+                    minlength="6"
+                    maxlength="128"
+                    autocomplete="new-password"
+                    required
+                >
+            </p>
+
+            <p>
+                <button type="submit">
+                    CRIAR ADMINISTRADOR
+                </button>
+            </p>
+
+            <p id="statusCadastroAdmin">
+                Nenhum administrador cadastrado nesta sessão.
+            </p>
+
+        </fieldset>
+
+    </form>
+
+
+    <!-- =====================================================
          USUÁRIOS CADASTRADOS
-    =========================================== -->
+    ====================================================== -->
 
     <section id="usuariosContainer">
 
-        <h2>
-            USUÁRIOS CADASTRADOS
-        </h2>
-
+        <h2>USUÁRIOS CADASTRADOS</h2>
 
         <p id="mensagemUsuarios">
-            Os usuários estão protegidos.
-            Desbloqueie a área administrativa para visualizar.
+            🔒 Os usuários estão protegidos.
+            Informe as credenciais administrativas abaixo.
         </p>
-
 
         <div
             id="listaUsuarios"
             class="borrado"
         >
-
-            <!-- Os usuários serão colocados aqui pelo JavaScript -->
-
+            <!-- Usuários carregados somente após autenticação admin -->
         </div>
 
     </section>
 
 
-
-    <!-- ==========================================
-         DESBLOQUEIO ADMINISTRATIVO
-    =========================================== -->
+    <!-- =====================================================
+         ACESSO ADMINISTRATIVO
+    ====================================================== -->
 
     <section id="areaDesbloqueio">
 
@@ -261,17 +228,12 @@
 
             <fieldset>
 
-                <legend>
-                    🔒 ACESSO ADMINISTRATIVO
-                </legend>
-
+                <legend>🔒 ACESSO ADMINISTRATIVO</legend>
 
                 <p>
-                    Para visualizar e gerenciar
-                    os usuários, entre com a
-                    conta do administrador.
+                    O administrador possui acesso aos usuários
+                    diretamente nesta página.
                 </p>
-
 
                 <p>
                     <label for="adminEmail">
@@ -286,7 +248,6 @@
                         required
                     >
                 </p>
-
 
                 <p>
                     <label for="adminSenha">
@@ -303,13 +264,11 @@
                     >
                 </p>
 
-
                 <p>
                     <button type="submit">
-                        DESBLOQUEAR
+                        DESBLOQUEAR ACESSO
                     </button>
                 </p>
-
 
                 <p
                     id="statusAdmin"
@@ -325,23 +284,24 @@
     </section>
 
 
-
-    <!-- ==========================================
-         ÁREA ADMINISTRATIVA LIBERADA
-    =========================================== -->
+    <!-- =====================================================
+         ÁREA ADMINISTRATIVA
+    ====================================================== -->
 
     <section id="areaAdminLiberada">
+
+        <h2>🔓 ÁREA ADMINISTRATIVA</h2>
+
+        <!-- ALTERAR -->
 
         <form id="formAlterar">
 
             <fieldset>
 
-                <legend>
-                    ALTERAR USUÁRIO
-                </legend>
-
+                <legend>ALTERAR USUÁRIO</legend>
 
                 <p>
+
                     <label for="usuarios">
                         Usuário:
                     </label>
@@ -353,10 +313,11 @@
                         </option>
 
                     </select>
+
                 </p>
 
-
                 <p>
+
                     <label for="novoNome">
                         Novo nome:
                     </label>
@@ -366,11 +327,13 @@
                         id="novoNome"
                         minlength="2"
                         maxlength="80"
+                        required
                     >
+
                 </p>
 
-
                 <p>
+
                     <label for="novoEmail">
                         Novo email:
                     </label>
@@ -379,14 +342,17 @@
                         type="email"
                         id="novoEmail"
                         maxlength="120"
+                        required
                     >
+
                 </p>
 
-
                 <p>
+
                     <button type="submit">
-                        ALTERAR
+                        ALTERAR USUÁRIO
                     </button>
+
                 </p>
 
             </fieldset>
@@ -394,25 +360,22 @@
         </form>
 
 
-
-        <!-- ======================================
-             DELETAR
-        ======================================= -->
+        <!-- DELETAR -->
 
         <form id="formDelete">
 
             <fieldset>
 
-                <legend>
-                    DELETAR USUÁRIO
-                </legend>
-
+                <legend>DELETAR USUÁRIO</legend>
 
                 <p>
-                    <button type="submit">
-                        DELETAR
-                    </button>
+                    Selecione um usuário acima e depois
+                    clique no botão abaixo.
                 </p>
+
+                <button type="submit">
+                    DELETAR USUÁRIO
+                </button>
 
             </fieldset>
 
@@ -421,10 +384,9 @@
     </section>
 
 
-
-    <!-- ==========================================
+    <!-- =====================================================
          FIREBASE
-    =========================================== -->
+    ====================================================== -->
 
     <script type="module">
 
@@ -455,13 +417,12 @@
         "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+        /* =====================================================
+           CONFIGURAÇÃO FIREBASE
 
-        // ==========================================
-        // CONFIGURAÇÃO DO FIREBASE
-        // ==========================================
-        // COLOQUE AQUI A MESMA CONFIGURAÇÃO
-        // DO SEU PROJETO ATUAL.
-        // ==========================================
+           COLOQUE AQUI A MESMA CONFIGURAÇÃO
+           DO SEU PROJETO FIREBASE.
+        ====================================================== */
 
         const firebaseConfig = {
 
@@ -497,86 +458,68 @@
             getFirestore(app);
 
 
+        /*
+         * IMPORTANTE:
+         *
+         * Depois de criar o administrador,
+         * o UID dele será armazenado aqui.
+         *
+         * Para a proteção real, coloque esse mesmo
+         * UID nas Firestore Rules.
+         */
 
-        // ==========================================
-        // UID DO ADMIN
-        // ==========================================
-        // COLOQUE O UID DA CONTA ADMIN AQUI.
-        // ==========================================
-
-        const ADMIN_UID =
-            "COLOQUE_SEU_UID_AQUI";
+        let ADMIN_UID =
+            localStorage.getItem("ADMIN_UID") || "";
 
 
-
-        // ==========================================
-        // ELEMENTOS
-        // ==========================================
+        /* =====================================================
+           ELEMENTOS
+        ====================================================== */
 
         const formCadastro =
-            document.getElementById(
-                "formCadastro"
-            );
-
+            document.getElementById("formCadastro");
 
         const formLogin =
-            document.getElementById(
-                "formLogin"
-            );
+            document.getElementById("formLogin");
 
+        const formCadastroAdmin =
+            document.getElementById("formCadastroAdmin");
 
         const formDesbloquear =
-            document.getElementById(
-                "formDesbloquear"
-            );
-
+            document.getElementById("formDesbloquear");
 
         const listaUsuarios =
-            document.getElementById(
-                "listaUsuarios"
-            );
-
+            document.getElementById("listaUsuarios");
 
         const mensagemUsuarios =
-            document.getElementById(
-                "mensagemUsuarios"
-            );
-
+            document.getElementById("mensagemUsuarios");
 
         const statusAdmin =
-            document.getElementById(
-                "statusAdmin"
-            );
+            document.getElementById("statusAdmin");
 
+        const statusCadastroAdmin =
+            document.getElementById(
+                "statusCadastroAdmin"
+            );
 
         const areaAdminLiberada =
             document.getElementById(
                 "areaAdminLiberada"
             );
 
-
         const selectUsuarios =
-            document.getElementById(
-                "usuarios"
-            );
-
+            document.getElementById("usuarios");
 
         const formAlterar =
-            document.getElementById(
-                "formAlterar"
-            );
-
+            document.getElementById("formAlterar");
 
         const formDelete =
-            document.getElementById(
-                "formDelete"
-            );
+            document.getElementById("formDelete");
 
 
-
-        // ==========================================
-        // SANITIZAÇÃO
-        // ==========================================
+        /* =====================================================
+           SANITIZAÇÃO
+        ====================================================== */
 
         function sanitizarTexto(valor) {
 
@@ -587,10 +530,9 @@
         }
 
 
-
-        // ==========================================
-        // VALIDAÇÃO NOME
-        // ==========================================
+        /* =====================================================
+           VALIDAÇÃO
+        ====================================================== */
 
         function validarNome(nome) {
 
@@ -603,11 +545,6 @@
 
         }
 
-
-
-        // ==========================================
-        // VALIDAÇÃO EMAIL
-        // ==========================================
 
         function validarEmail(email) {
 
@@ -622,11 +559,6 @@
         }
 
 
-
-        // ==========================================
-        // VALIDAÇÃO SENHA
-        // ==========================================
-
         function validarSenha(senha) {
 
             return (
@@ -637,17 +569,15 @@
         }
 
 
-
-        // ==========================================
-        // CADASTRO
-        // ==========================================
+        /* =====================================================
+           CADASTRO NORMAL
+        ====================================================== */
 
         formCadastro.addEventListener(
             "submit",
             async (evento) => {
 
                 evento.preventDefault();
-
 
                 const nome =
                     sanitizarTexto(
@@ -656,7 +586,6 @@
                         ).value
                     );
 
-
                 const email =
                     sanitizarTexto(
                         document.getElementById(
@@ -664,33 +593,25 @@
                         ).value
                     ).toLowerCase();
 
-
                 const senha =
                     document.getElementById(
                         "senha"
                     ).value;
 
 
-
                 if (!validarNome(nome)) {
 
-                    alert(
-                        "Nome inválido."
-                    );
+                    alert("Nome inválido.");
 
                     return;
-
                 }
 
 
                 if (!validarEmail(email)) {
 
-                    alert(
-                        "Email inválido."
-                    );
+                    alert("Email inválido.");
 
                     return;
-
                 }
 
 
@@ -701,9 +622,7 @@
                     );
 
                     return;
-
                 }
-
 
 
                 try {
@@ -741,25 +660,15 @@
                     formCadastro.reset();
 
 
-                    // Atualiza a lista se estiver
-                    // desbloqueada
-
-                    await carregarUsuarios();
-
-
                 } catch (erro) {
 
                     console.error(
-                        "ERRO NO CADASTRO:",
                         erro
                     );
 
-
                     alert(
                         "Erro no cadastro:\n\n" +
-                        erro.code +
-                        "\n" +
-                        erro.message
+                        erro.code
                     );
 
                 }
@@ -768,17 +677,15 @@
         );
 
 
-
-        // ==========================================
-        // LOGIN NORMAL
-        // ==========================================
+        /* =====================================================
+           LOGIN NORMAL
+        ====================================================== */
 
         formLogin.addEventListener(
             "submit",
             async (evento) => {
 
                 evento.preventDefault();
-
 
                 const email =
                     sanitizarTexto(
@@ -787,12 +694,10 @@
                         ).value
                     ).toLowerCase();
 
-
                 const senha =
                     document.getElementById(
                         "loginSenha"
                     ).value;
-
 
 
                 try {
@@ -809,16 +714,17 @@
                         credencial.user;
 
 
-                    // Admin também pode usar
-                    // o login normal.
+                    /*
+                     * LOGIN NORMAL
+                     *
+                     * Se for administrador,
+                     * ele continua nesta página.
+                     */
 
                     if (
+                        ADMIN_UID &&
                         user.uid === ADMIN_UID
                     ) {
-
-                        alert(
-                            "Login de administrador realizado."
-                        );
 
                         desbloquearAreaAdmin();
 
@@ -833,12 +739,6 @@
 
                 } catch (erro) {
 
-                    console.error(
-                        "ERRO NO LOGIN:",
-                        erro
-                    );
-
-
                     alert(
                         "E-mail ou senha incorretos."
                     );
@@ -849,10 +749,164 @@
         );
 
 
+        /* =====================================================
+           CADASTRO DO ADMINISTRADOR
+        ====================================================== */
 
-        // ==========================================
-        // DESBLOQUEAR ÁREA ADMIN
-        // ==========================================
+        formCadastroAdmin.addEventListener(
+            "submit",
+            async (evento) => {
+
+                evento.preventDefault();
+
+
+                if (ADMIN_UID) {
+
+                    alert(
+                        "Já existe um administrador cadastrado."
+                    );
+
+                    return;
+
+                }
+
+
+                const nome =
+                    sanitizarTexto(
+                        document.getElementById(
+                            "adminNome"
+                        ).value
+                    );
+
+
+                const email =
+                    sanitizarTexto(
+                        document.getElementById(
+                            "adminEmailCadastro"
+                        ).value
+                    ).toLowerCase();
+
+
+                const senha =
+                    document.getElementById(
+                        "adminSenhaCadastro"
+                    ).value;
+
+
+                if (!validarNome(nome)) {
+
+                    alert(
+                        "Nome administrativo inválido."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!validarEmail(email)) {
+
+                    alert(
+                        "Email administrativo inválido."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!validarSenha(senha)) {
+
+                    alert(
+                        "A senha deve ter entre 6 e 128 caracteres."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const credencial =
+                        await createUserWithEmailAndPassword(
+                            auth,
+                            email,
+                            senha
+                        );
+
+
+                    const admin =
+                        credencial.user;
+
+
+                    /*
+                     * SALVA O UID DO ADMINISTRADOR
+                     */
+
+                    ADMIN_UID =
+                        admin.uid;
+
+
+                    localStorage.setItem(
+                        "ADMIN_UID",
+                        ADMIN_UID
+                    );
+
+
+                    /*
+                     * SALVA OS DADOS DO ADMIN
+                     */
+
+                    await setDoc(
+                        doc(
+                            db,
+                            "usuarios",
+                            admin.uid
+                        ),
+                        {
+                            nome: nome,
+                            email: email,
+                            tipo: "administrador"
+                        }
+                    );
+
+
+                    statusCadastroAdmin.textContent =
+                        "✅ Administrador criado com sucesso. UID: " +
+                        ADMIN_UID;
+
+
+                    alert(
+                        "Administrador cadastrado com sucesso!"
+                    );
+
+
+                    formCadastroAdmin.reset();
+
+
+                } catch (erro) {
+
+                    console.error(
+                        "ERRO ADMIN:",
+                        erro
+                    );
+
+
+                    alert(
+                        "Erro ao criar administrador:\n\n" +
+                        erro.code
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           DESBLOQUEIO ADMINISTRATIVO
+        ====================================================== */
 
         formDesbloquear.addEventListener(
             "submit",
@@ -875,7 +929,6 @@
                     ).value;
 
 
-
                 if (!validarEmail(email)) {
 
                     alert(
@@ -890,7 +943,7 @@
                 if (!validarSenha(senha)) {
 
                     alert(
-                        "Senha inválida."
+                        "Senha administrativa inválida."
                     );
 
                     return;
@@ -898,12 +951,18 @@
                 }
 
 
+                if (!ADMIN_UID) {
+
+                    alert(
+                        "Nenhum administrador foi cadastrado ainda."
+                    );
+
+                    return;
+
+                }
+
 
                 try {
-
-                    // ==================================
-                    // LOGIN DA CONTA ADMIN
-                    // ==================================
 
                     const credencial =
                         await signInWithEmailAndPassword(
@@ -917,37 +976,24 @@
                         credencial.user;
 
 
-
-                    // ==================================
-                    // CONFERE O UID
-                    // ==================================
-
                     if (
                         user.uid !== ADMIN_UID
                     ) {
 
-                        alert(
-                            "Esta conta não possui permissão de administrador."
-                        );
-
-
                         statusAdmin.textContent =
-                            "🔒 Acesso negado";
-
+                            "🔒 Acesso negado.";
 
                         statusAdmin.className =
                             "admin-bloqueado";
 
+                        alert(
+                            "Esta conta não é o administrador."
+                        );
 
                         return;
 
                     }
 
-
-
-                    // ==================================
-                    // LIBERA
-                    // ==================================
 
                     desbloquearAreaAdmin();
 
@@ -958,21 +1004,18 @@
                 } catch (erro) {
 
                     console.error(
-                        "ERRO ADMIN:",
                         erro
                     );
 
 
                     statusAdmin.textContent =
-                        "🔒 Credenciais inválidas";
-
+                        "🔒 Credenciais inválidas.";
 
                     statusAdmin.className =
                         "admin-bloqueado";
 
-
                     alert(
-                        "Conta de administrador inválida."
+                        "Email ou senha administrativa incorretos."
                     );
 
                 }
@@ -981,10 +1024,9 @@
         );
 
 
-
-        // ==========================================
-        // FUNÇÃO DE DESBLOQUEIO
-        // ==========================================
+        /* =====================================================
+           DESBLOQUEAR
+        ====================================================== */
 
         async function desbloquearAreaAdmin() {
 
@@ -998,8 +1040,7 @@
 
 
             statusAdmin.textContent =
-                "🔓 Área administrativa desbloqueada";
-
+                "🔓 Acesso administrativo liberado.";
 
             statusAdmin.className =
                 "admin-liberado";
@@ -1014,12 +1055,25 @@
         }
 
 
-
-        // ==========================================
-        // CARREGAR USUÁRIOS
-        // ==========================================
+        /* =====================================================
+           CARREGAR USUÁRIOS
+        ====================================================== */
 
         async function carregarUsuarios() {
+
+            /*
+             * NÃO CARREGA USUÁRIOS SE NÃO FOR ADMIN
+             */
+
+            if (
+                !auth.currentUser ||
+                auth.currentUser.uid !== ADMIN_UID
+            ) {
+
+                return;
+
+            }
+
 
             try {
 
@@ -1040,23 +1094,22 @@
                     "";
 
 
-                const opcao =
+                const primeiraOpcao =
                     document.createElement(
                         "option"
                     );
 
 
-                opcao.value = "";
+                primeiraOpcao.value = "";
 
 
-                opcao.textContent =
+                primeiraOpcao.textContent =
                     "Selecione um usuário";
 
 
                 selectUsuarios.appendChild(
-                    opcao
+                    primeiraOpcao
                 );
-
 
 
                 snapshot.forEach(
@@ -1066,10 +1119,9 @@
                             documento.data();
 
 
-
-                        // ==================================
-                        // LISTA VISUAL
-                        // ==================================
+                        /*
+                         * CARD
+                         */
 
                         const div =
                             document.createElement(
@@ -1081,7 +1133,9 @@
                             "usuario-item";
 
 
-                        // textContent protege contra XSS
+                        /*
+                         * textContent evita XSS
+                         */
 
                         div.textContent =
                             `${dados.nome || "Sem nome"} - ${dados.email || "Sem email"}`;
@@ -1092,10 +1146,9 @@
                         );
 
 
-
-                        // ==================================
-                        // SELECT DO ADMIN
-                        // ==================================
+                        /*
+                         * OPTION
+                         */
 
                         const option =
                             document.createElement(
@@ -1122,16 +1175,13 @@
             } catch (erro) {
 
                 console.error(
-                    "ERRO AO CARREGAR USUÁRIOS:",
+                    "ERRO USUÁRIOS:",
                     erro
                 );
 
 
                 alert(
-                    "Erro ao carregar usuários:\n\n" +
-                    erro.code +
-                    "\n" +
-                    erro.message
+                    "Erro ao carregar usuários."
                 );
 
             }
@@ -1139,10 +1189,9 @@
         }
 
 
-
-        // ==========================================
-        // ALTERAR
-        // ==========================================
+        /* =====================================================
+           ALTERAR USUÁRIO
+        ====================================================== */
 
         formAlterar.addEventListener(
             "submit",
@@ -1150,10 +1199,6 @@
 
                 evento.preventDefault();
 
-
-                // ==================================
-                // CONFERE ADMIN
-                // ==================================
 
                 if (
                     !auth.currentUser ||
@@ -1167,7 +1212,6 @@
                     return;
 
                 }
-
 
 
                 const uid =
@@ -1185,7 +1229,6 @@
                 }
 
 
-
                 const novoNome =
                     sanitizarTexto(
                         document.getElementById(
@@ -1200,7 +1243,6 @@
                             "novoEmail"
                         ).value
                     ).toLowerCase();
-
 
 
                 if (!validarNome(novoNome)) {
@@ -1225,12 +1267,14 @@
                 }
 
 
-
                 try {
 
-                    // ==================================
-                    // WHERE
-                    // ==================================
+                    /*
+                     * WHERE
+                     *
+                     * Verifica se já existe outro
+                     * usuário com esse email.
+                     */
 
                     const consulta =
                         query(
@@ -1252,8 +1296,7 @@
                         );
 
 
-                    let duplicado =
-                        false;
+                    let duplicado = false;
 
 
                     resultado.forEach(
@@ -1263,8 +1306,7 @@
                                 documento.id !== uid
                             ) {
 
-                                duplicado =
-                                    true;
+                                duplicado = true;
 
                             }
 
@@ -1282,11 +1324,6 @@
 
                     }
 
-
-
-                    // ==================================
-                    // ATUALIZA
-                    // ==================================
 
                     await setDoc(
                         doc(
@@ -1314,19 +1351,16 @@
 
                     await carregarUsuarios();
 
+
                 } catch (erro) {
 
                     console.error(
-                        "ERRO AO ALTERAR:",
                         erro
                     );
 
 
                     alert(
-                        "Erro ao alterar usuário:\n\n" +
-                        erro.code +
-                        "\n" +
-                        erro.message
+                        "Erro ao alterar usuário."
                     );
 
                 }
@@ -1335,10 +1369,9 @@
         );
 
 
-
-        // ==========================================
-        // DELETAR
-        // ==========================================
+        /* =====================================================
+           DELETAR USUÁRIO
+        ====================================================== */
 
         formDelete.addEventListener(
             "submit",
@@ -1346,10 +1379,6 @@
 
                 evento.preventDefault();
 
-
-                // ==================================
-                // CONFERE ADMIN
-                // ==================================
 
                 if (
                     !auth.currentUser ||
@@ -1363,7 +1392,6 @@
                     return;
 
                 }
-
 
 
                 const uid =
@@ -1381,11 +1409,6 @@
                 }
 
 
-
-                // ==================================
-                // NÃO DEIXA ADMIN SE APAGAR
-                // ==================================
-
                 if (
                     uid === ADMIN_UID
                 ) {
@@ -1399,7 +1422,6 @@
                 }
 
 
-
                 const confirmar =
                     confirm(
                         "Tem certeza que deseja deletar este usuário?"
@@ -1411,7 +1433,6 @@
                     return;
 
                 }
-
 
 
                 try {
@@ -1436,16 +1457,12 @@
                 } catch (erro) {
 
                     console.error(
-                        "ERRO AO DELETAR:",
                         erro
                     );
 
 
                     alert(
-                        "Erro ao deletar usuário:\n\n" +
-                        erro.code +
-                        "\n" +
-                        erro.message
+                        "Erro ao deletar usuário."
                     );
 
                 }
