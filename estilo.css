@@ -1,502 +1,171 @@
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    min-height: 100vh;
-    padding: 35px;
-    font-family: Arial, Helvetica, sans-serif;
-
-    background:
-        linear-gradient(
-            135deg,
-            #eeeeee 0%,
-            #f7f7f7 50%,
-            #e5e5e5 100%
-        );
-
-    color: #222;
-}
-
-
-/* =========================================================
-   TOPO — CADASTRO + LOGIN
-========================================================= */
-
-body > form {
-    display: inline-block;
-    vertical-align: top;
-
-    width: 390px;
-    max-width: 100%;
-
-    margin-right: 18px;
-    margin-bottom: 20px;
-}
-
-
-/* =========================================================
-   FIELDSET
-========================================================= */
-
-fieldset {
-    border: none;
-    border-radius: 16px;
-
-    padding: 25px;
-
-    background: #ffffff;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.10);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-fieldset:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.13);
-}
-
-
-/* =========================================================
-   TÍTULOS DOS FORMULÁRIOS
-========================================================= */
-
-legend {
-    padding: 0 8px;
-
-    font-size: 21px;
-    font-weight: 800;
-
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
     color: #111;
 }
 
+h1, h2, h3 {
+    margin-bottom: 10px;
+}
 
-/* =========================================================
-   TEXTOS
-========================================================= */
+form {
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 400px;
+}
 
-p {
-    margin-top: 16px;
-    line-height: 1.5;
+fieldset {
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: white;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 8px;
 }
 
 label {
     display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
-
-
-/* =========================================================
-   INPUTS
-========================================================= */
 
 input,
 select {
     width: 100%;
-
-    padding: 12px 14px;
-
-    border: 1px solid #d0d0d0;
-    border-radius: 9px;
-
-    background: #fafafa;
-
-    color: #222;
-
+    box-sizing: border-box;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
     font-size: 14px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
-}
-
-input:focus,
-select:focus {
-    border-color: #222;
-
-    background: #fff;
-
-    box-shadow:
-        0 0 0 3px rgba(0, 0, 0, 0.08);
-}
-
-
-/* =========================================================
-   BOTÕES
-========================================================= */
-
-button,
-input[type="reset"] {
-    border: none;
-    border-radius: 9px;
-
-    padding: 12px 18px;
-
-    font-size: 13px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
 button {
-    background: #171717;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #222;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
 button:hover {
-    background: #333;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 12px rgba(0, 0, 0, 0.18);
+    background-color: #444;
 }
 
-button:active {
-    transform: translateY(0);
+button[type="reset"] {
+    background-color: #ddd;
+    color: #111;
+    width: 100%;
 }
 
-input[type="reset"] {
-    margin-left: 6px;
-
-    background: #e5e5e5;
-    color: #222;
+#formCadastro,
+#formLogin {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 15px;
 }
-
-input[type="reset"]:hover {
-    background: #d5d5d5;
-}
-
-
-/* =========================================================
-   USUÁRIOS CADASTRADOS
-========================================================= */
 
 #usuariosContainer {
+    margin-top: 35px;
     width: 100%;
-
-    margin-top: 15px;
-    margin-bottom: 25px;
-
-    padding: 25px;
-
-    border-radius: 16px;
-
-    background: #ffffff;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.09);
 }
-
-#usuariosContainer h2 {
-    margin-bottom: 8px;
-
-    font-size: 22px;
-    font-weight: 800;
-}
-
-#mensagemUsuarios {
-    margin-top: 5px;
-
-    color: #666;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   LISTA DE USUÁRIOS
-========================================================= */
 
 #listaUsuarios {
-    margin-top: 18px;
-
-    transition:
-        filter 0.35s ease,
-        opacity 0.35s ease;
+    margin-top: 15px;
+    transition: filter 0.3s ease;
 }
-
-
-/* USUÁRIOS BORRADOS */
 
 #listaUsuarios.borrado {
     filter: blur(8px);
-
     user-select: none;
     pointer-events: none;
-
-    opacity: 0.55;
 }
 
-
-/* CARTÃO DE USUÁRIO */
-
-.usuario-item {
-    display: block;
-
+.usuario {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px;
     margin-bottom: 10px;
-
-    padding: 14px 16px;
-
-    border: 1px solid #e1e1e1;
-    border-radius: 10px;
-
-    background: #f8f8f8;
-
-    font-size: 14px;
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
 }
 
-.usuario-item:hover {
-    background: #eeeeee;
-
-    transform: translateX(3px);
+.usuario strong {
+    display: block;
+    margin-bottom: 5px;
 }
-
-
-/* =========================================================
-   ACESSO ADMINISTRATIVO
-========================================================= */
 
 #areaDesbloqueio {
-    width: 100%;
-
-    margin-top: 10px;
-    margin-bottom: 25px;
+    margin-top: 30px;
+    width: 400px;
 }
 
-#areaDesbloqueio form {
-    width: 100%;
-    max-width: 520px;
+#areaDesbloqueio p {
+    margin-bottom: 15px;
 }
 
-#areaDesbloqueio fieldset {
-    border-left: 5px solid #222;
+#formDesbloquear {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
 }
-
-#areaDesbloqueio legend {
-    font-size: 20px;
-}
-
-#areaDesbloqueio p:first-of-type {
-    color: #555;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   STATUS DO ADMIN
-========================================================= */
 
 #statusAdmin {
-    font-size: 14px;
-
-    font-weight: 800;
+    margin-top: 15px;
+    font-weight: bold;
 }
-
-.admin-bloqueado {
-    color: #c40000;
-}
-
-.admin-liberado {
-    color: #087a25;
-}
-
-
-/* =========================================================
-   ÁREA ADMINISTRATIVA LIBERADA
-========================================================= */
 
 #areaAdminLiberada {
-    display: none;
-
-    width: 100%;
-
     margin-top: 25px;
-    padding: 25px;
-
-    border-radius: 16px;
-
-    background: #ffffff;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.10);
 }
-
-#areaAdminLiberada h2 {
-    margin-bottom: 20px;
-
-    font-size: 22px;
-    font-weight: 800;
-}
-
-
-/* FORMULÁRIOS ADMIN */
 
 #areaAdminLiberada form {
-    width: 100%;
-    max-width: 520px;
-
-    margin-bottom: 20px;
+    width: 400px;
 }
 
-
-/* =========================================================
-   BOTÃO ALTERAR
-========================================================= */
-
-#formAlterar button {
-    background: #171717;
+#areaAdminLiberada button {
+    margin-right: 5px;
 }
 
-#formAlterar button:hover {
-    background: #333;
+#formExcluir {
+    border: 1px solid #ccc;
+    background: white;
 }
 
-
-/* =========================================================
-   ÁREA DE DELETAR
-========================================================= */
-
-#formDelete {
-    margin-top: 10px;
-}
-
-#formDelete fieldset {
-    border-left: 5px solid #c40000;
-}
-
-#formDelete legend {
-    color: #a00000;
-}
-
-#formDelete p {
-    color: #666;
-
-    font-size: 14px;
-}
-
-#formDelete button {
-    background: #c40000;
-}
-
-#formDelete button:hover {
-    background: #990000;
-}
-
-
-/* =========================================================
-   SELECT
-========================================================= */
-
-select {
-    cursor: pointer;
-}
-
-
-/* =========================================================
-   ANIMAÇÃO DE APARECIMENTO
-========================================================= */
-
-#areaAdminLiberada {
-    animation: aparecer 0.35s ease;
-}
-
-@keyframes aparecer {
-
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVIDADE
-========================================================= */
-
+/* Responsividade */
 @media (max-width: 850px) {
-
-    body {
-        padding: 20px;
-    }
-
-    body > form {
+    #formCadastro,
+    #formLogin {
         display: block;
-
-        width: 100%;
-        max-width: 520px;
-
         margin-right: 0;
+        width: 400px;
     }
-
 }
-
 
 @media (max-width: 500px) {
-
     body {
-        padding: 12px;
+        margin: 10px;
     }
 
-    fieldset {
-        padding: 18px;
-    }
-
-    #usuariosContainer,
-    #areaAdminLiberada {
-        padding: 18px;
-    }
-
-    legend {
-        font-size: 18px;
-    }
-
-    button,
-    input[type="reset"] {
+    form,
+    #formCadastro,
+    #formLogin,
+    #areaDesbloqueio,
+    #areaAdminLiberada form {
         width: 100%;
-
-        margin: 5px 0;
+        box-sizing: border-box;
     }
-
-    input[type="reset"] {
-        margin-left: 0;
-    }
-
 }
