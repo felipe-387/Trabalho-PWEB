@@ -7,9 +7,7 @@ body {
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header {
     width: 100%;
@@ -21,9 +19,7 @@ header {
 }
 
 
-/* =========================
-   MENU
-========================= */
+/* MENU */
 
 nav {
     background-color: #eeeeee;
@@ -35,9 +31,7 @@ nav {
 }
 
 
-/* =========================
-   SECTION
-========================= */
+/* SECTION */
 
 section {
     height: 800px;
@@ -48,9 +42,7 @@ section {
 }
 
 
-/* =========================
-   ASIDE
-========================= */
+/* ASIDE */
 
 aside {
     height: 800px;
@@ -61,9 +53,7 @@ aside {
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer {
     width: 100%;
@@ -76,9 +66,7 @@ footer {
 }
 
 
-/* =========================
-   FORMULÁRIOS
-========================= */
+/* FORMULÁRIOS */
 
 form {
     width: 400px;
@@ -86,9 +74,7 @@ form {
 }
 
 
-/* =========================
-   CAIXAS
-========================= */
+/* CAIXAS */
 
 fieldset {
     background-color: white;
@@ -98,9 +84,7 @@ fieldset {
 }
 
 
-/* =========================
-   TÍTULOS
-========================= */
+/* TÍTULOS */
 
 legend {
     font-size: 20px;
@@ -109,9 +93,7 @@ legend {
 }
 
 
-/* =========================
-   TEXTOS
-========================= */
+/* TEXTOS */
 
 p {
     margin: 15px 0;
@@ -125,14 +107,11 @@ label {
 }
 
 
-/* =========================
-   CAMPOS
-========================= */
+/* CAMPOS */
 
 input[type="text"],
 input[type="email"],
-input[type="password"],
-select {
+input[type="password"] {
     width: 95%;
     padding: 10px;
     border: 1px solid #999999;
@@ -142,6 +121,11 @@ select {
 
 select {
     width: 100%;
+    padding: 10px;
+    border: 1px solid #999999;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: white;
 }
 
 input[type="text"]:focus,
@@ -153,9 +137,7 @@ select:focus {
 }
 
 
-/* =========================
-   BOTÕES
-========================= */
+/* BOTÕES */
 
 button {
     padding: 10px 20px;
@@ -172,9 +154,7 @@ button:hover {
 }
 
 
-/* =========================
-   BOTÃO LIMPAR
-========================= */
+/* BOTÃO LIMPAR */
 
 input[type="reset"] {
     padding: 10px 20px;
@@ -191,9 +171,7 @@ input[type="reset"]:hover {
 }
 
 
-/* =========================
-   ÁREA DE ADMINISTRADOR
-========================= */
+/* ÁREA DE ADMINISTRADOR */
 
 #delete {
     border-color: #cc0000;
@@ -204,9 +182,7 @@ input[type="reset"]:hover {
 }
 
 
-/* =========================
-   BOTÃO ALTERAR
-========================= */
+/* BOTÃO ALTERAR */
 
 #btnAlterar {
     background-color: #555555;
@@ -217,9 +193,7 @@ input[type="reset"]:hover {
 }
 
 
-/* =========================
-   BOTÃO DELETAR
-========================= */
+/* BOTÃO DELETAR */
 
 #formDelete button[type="submit"] {
     background-color: #cc0000;
