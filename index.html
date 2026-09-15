@@ -5,12 +5,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sistema CRUD</title>
+    <title>Cadastro e Usuários</title>
 
     <link rel="stylesheet" href="estilo.css">
+
+    <style>
+        /* =====================================================
+           USUÁRIOS
+        ===================================================== */
+
+        #usuariosContainer {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #listaUsuarios {
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Usuários ficam borrados enquanto o admin não entra */
+        #listaUsuarios.borrado {
+            filter: blur(7px);
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .usuario-item {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 8px 0;
+        }
+
+
+        /* =====================================================
+           ACESSO ADMINISTRATIVO
+        ===================================================== */
+
+        #areaDesbloqueio {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #areaDesbloqueio form {
+            max-width: 500px;
+        }
+
+        #statusAdmin {
+            font-weight: bold;
+        }
+
+        .admin-bloqueado {
+            color: #c40000;
+        }
+
+        .admin-liberado {
+            color: #008000;
+        }
+
+
+        /* =====================================================
+           ÁREA ADMINISTRATIVA
+        ===================================================== */
+
+        #areaAdminLiberada {
+            display: none;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        #areaAdminLiberada form {
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        #formDelete button {
+            background-color: #c40000;
+        }
+
+        #formDelete button:hover {
+            background-color: #950000;
+        }
+    </style>
+
 </head>
 
 <body>
+
 
     <!-- =====================================================
          CADASTRO DE USUÁRIO
@@ -23,7 +106,9 @@
             <legend>CADASTRO</legend>
 
             <p>
-                <label for="nome">Nome:</label>
+                <label for="nome">
+                    Nome:
+                </label>
 
                 <input
                     type="text"
@@ -35,8 +120,11 @@
                 >
             </p>
 
+
             <p>
-                <label for="email">Email:</label>
+                <label for="email">
+                    Email:
+                </label>
 
                 <input
                     type="email"
@@ -47,8 +135,11 @@
                 >
             </p>
 
+
             <p>
-                <label for="senha">Senha:</label>
+                <label for="senha">
+                    Senha:
+                </label>
 
                 <input
                     type="password"
@@ -60,7 +151,9 @@
                 >
             </p>
 
+
             <p>
+
                 <button type="submit">
                     CADASTRAR
                 </button>
@@ -69,11 +162,13 @@
                     type="reset"
                     value="LIMPAR"
                 >
+
             </p>
 
         </fieldset>
 
     </form>
+
 
 
     <!-- =====================================================
@@ -87,6 +182,7 @@
             <legend>LOGIN</legend>
 
             <p>
+
                 <label for="loginEmail">
                     Email:
                 </label>
@@ -98,9 +194,12 @@
                     autocomplete="email"
                     required
                 >
+
             </p>
 
+
             <p>
+
                 <label for="loginSenha">
                     Senha:
                 </label>
@@ -113,17 +212,22 @@
                     autocomplete="current-password"
                     required
                 >
+
             </p>
 
+
             <p>
+
                 <button type="submit">
                     FAZER LOGIN
                 </button>
+
             </p>
 
         </fieldset>
 
     </form>
+
 
 
     <!-- =====================================================
@@ -132,24 +236,31 @@
 
     <section id="usuariosContainer">
 
-        <h2>USUÁRIOS CADASTRADOS</h2>
+        <h2>
+            USUÁRIOS CADASTRADOS
+        </h2>
+
 
         <p id="mensagemUsuarios">
             🔒 Os usuários estão protegidos.
             Para visualizar, entre com o login do administrador.
         </p>
 
+
         <div
             id="listaUsuarios"
             class="borrado"
         >
+
             <!--
-                Os usuários NÃO são carregados aqui
-                enquanto a área estiver bloqueada.
+                Os usuários só serão carregados
+                depois que o administrador for autenticado.
             -->
+
         </div>
 
     </section>
+
 
 
     <!-- =====================================================
@@ -162,14 +273,19 @@
 
             <fieldset>
 
-                <legend>🔒 ACESSO ADMINISTRATIVO</legend>
+                <legend>
+                    🔒 ACESSO ADMINISTRATIVO
+                </legend>
+
 
                 <p>
                     Para ter acesso à área administrativa,
-                    insira o login.
+                    insira o login do administrador.
                 </p>
 
+
                 <p>
+
                     <label for="adminEmail">
                         Email do administrador:
                     </label>
@@ -181,9 +297,12 @@
                         autocomplete="off"
                         required
                     >
+
                 </p>
 
+
                 <p>
+
                     <label for="adminSenha">
                         Senha do administrador:
                     </label>
@@ -196,13 +315,18 @@
                         autocomplete="off"
                         required
                     >
+
                 </p>
 
+
                 <p>
+
                     <button type="submit">
                         ENTRAR COMO ADMIN
                     </button>
+
                 </p>
+
 
                 <p
                     id="statusAdmin"
@@ -218,21 +342,30 @@
     </section>
 
 
+
     <!-- =====================================================
-         ÁREA ADMINISTRATIVA
+         ÁREA ADMINISTRATIVA LIBERADA
     ====================================================== -->
 
     <section id="areaAdminLiberada">
 
-        <h2>🔓 ÁREA ADMINISTRATIVA</h2>
+        <h2>
+            🔓 ÁREA ADMINISTRATIVA
+        </h2>
 
-        <!-- ALTERAR USUÁRIO -->
+
+        <!-- =================================================
+             ALTERAR USUÁRIO
+        ================================================== -->
 
         <form id="formAlterar">
 
             <fieldset>
 
-                <legend>ALTERAR USUÁRIO</legend>
+                <legend>
+                    ALTERAR USUÁRIO
+                </legend>
+
 
                 <p>
 
@@ -250,6 +383,7 @@
 
                 </p>
 
+
                 <p>
 
                     <label for="novoNome">
@@ -266,6 +400,7 @@
 
                 </p>
 
+
                 <p>
 
                     <label for="novoEmail">
@@ -281,6 +416,7 @@
 
                 </p>
 
+
                 <p>
 
                     <button type="submit">
@@ -294,28 +430,40 @@
         </form>
 
 
-        <!-- DELETAR USUÁRIO -->
+
+        <!-- =================================================
+             DELETAR USUÁRIO
+        ================================================== -->
 
         <form id="formDelete">
 
             <fieldset>
 
-                <legend>DELETAR USUÁRIO</legend>
+                <legend>
+                    DELETAR USUÁRIO
+                </legend>
+
 
                 <p>
-                    Selecione um usuário acima
+                    Selecione um usuário na lista acima
                     para excluí-lo.
                 </p>
 
-                <button type="submit">
-                    DELETAR USUÁRIO
-                </button>
+
+                <p>
+
+                    <button type="submit">
+                        DELETAR USUÁRIO
+                    </button>
+
+                </p>
 
             </fieldset>
 
         </form>
 
     </section>
+
 
 
     <!-- =====================================================
@@ -351,11 +499,14 @@
         "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+
         // =====================================================
         // CONFIGURAÇÃO DO FIREBASE
         // =====================================================
-        // COLOQUE AQUI A MESMA CONFIGURAÇÃO
-        // DO SEU PROJETO ATUAL.
+        //
+        // MANTENHA A MESMA CONFIGURAÇÃO DO SEU PROJETO
+        // QUE JÁ ESTAVA FUNCIONANDO.
+        //
         // =====================================================
 
         const firebaseConfig = {
@@ -392,26 +543,30 @@
             getFirestore(app);
 
 
+
         // =====================================================
-        // UID DO ADMINISTRADOR
+        // UID DO ADMINISTRADOR EXISTENTE
         // =====================================================
-        // PEGUE O UID DA CONTA ADMINISTRADORA NO FIREBASE:
+        //
+        // NÃO É PARA CRIAR O ADMIN AQUI.
+        //
+        // Pegue o UID da conta que já existe em:
         //
         // Firebase
         // → Authentication
         // → Users
-        // → clique no administrador
-        // → copie o User UID
         //
-        // E COLE AQUI.
+        // Cole o UID abaixo.
+        //
         // =====================================================
 
         const ADMIN_UID =
-            "COLOQUE_AQUI_O_UID_DO_ADMIN";
+            "COLOQUE_AQUI_O_UID_DO_ADMINISTRADOR";
+
 
 
         // =====================================================
-        // ELEMENTOS
+        // ELEMENTOS DA PÁGINA
         // =====================================================
 
         const formCadastro =
@@ -419,50 +574,60 @@
                 "formCadastro"
             );
 
+
         const formLogin =
             document.getElementById(
                 "formLogin"
             );
+
 
         const formDesbloquear =
             document.getElementById(
                 "formDesbloquear"
             );
 
+
         const listaUsuarios =
             document.getElementById(
                 "listaUsuarios"
             );
+
 
         const mensagemUsuarios =
             document.getElementById(
                 "mensagemUsuarios"
             );
 
+
         const statusAdmin =
             document.getElementById(
                 "statusAdmin"
             );
+
 
         const areaAdminLiberada =
             document.getElementById(
                 "areaAdminLiberada"
             );
 
+
         const selectUsuarios =
             document.getElementById(
                 "usuarios"
             );
+
 
         const formAlterar =
             document.getElementById(
                 "formAlterar"
             );
 
+
         const formDelete =
             document.getElementById(
                 "formDelete"
             );
+
 
 
         // =====================================================
@@ -476,6 +641,7 @@
                 .replace(/\s+/g, " ");
 
         }
+
 
 
         // =====================================================
@@ -492,6 +658,7 @@
             );
 
         }
+
 
 
         // =====================================================
@@ -511,6 +678,7 @@
         }
 
 
+
         // =====================================================
         // VALIDAÇÃO DA SENHA
         // =====================================================
@@ -525,8 +693,9 @@
         }
 
 
+
         // =====================================================
-        // CADASTRO
+        // CADASTRO DE USUÁRIO
         // =====================================================
 
         formCadastro.addEventListener(
@@ -556,6 +725,7 @@
                     document.getElementById(
                         "senha"
                     ).value;
+
 
 
                 if (!validarNome(nome)) {
@@ -589,6 +759,7 @@
                     return;
 
                 }
+
 
 
                 try {
@@ -645,6 +816,7 @@
         );
 
 
+
         // =====================================================
         // LOGIN NORMAL
         // =====================================================
@@ -670,6 +842,19 @@
                     ).value;
 
 
+
+                if (!validarEmail(email)) {
+
+                    alert(
+                        "Digite um email válido."
+                    );
+
+                    return;
+
+                }
+
+
+
                 try {
 
                     const credencial =
@@ -685,11 +870,8 @@
 
 
                     /*
-                     * SE FOR ADMINISTRADOR,
-                     * NÃO VAI PARA site.html.
-                     *
-                     * ELE PERMANECE NA PÁGINA
-                     * E A ÁREA ADMINISTRATIVA É LIBERADA.
+                     * SE FOR O ADMINISTRADOR,
+                     * PERMANECE NA PÁGINA.
                      */
 
                     if (
@@ -729,8 +911,9 @@
         );
 
 
+
         // =====================================================
-        // LOGIN ADMINISTRATIVO
+        // ACESSO ADMINISTRATIVO
         // =====================================================
 
         formDesbloquear.addEventListener(
@@ -752,6 +935,7 @@
                     document.getElementById(
                         "adminSenha"
                     ).value;
+
 
 
                 if (!validarEmail(email)) {
@@ -777,8 +961,7 @@
 
 
                 /*
-                 * VERIFICA AS CREDENCIAIS
-                 * NO FIREBASE AUTHENTICATION.
+                 * FAZ LOGIN NO FIREBASE AUTH
                  */
 
                 try {
@@ -796,8 +979,7 @@
 
 
                     /*
-                     * COMPARAÇÃO COM O UID
-                     * DO ADMINISTRADOR AUTORIZADO.
+                     * CONFERE O UID DO ADMIN
                      */
 
                     if (
@@ -822,7 +1004,7 @@
 
 
                     /*
-                     * ADMIN CORRETO
+                     * ADMINISTRADOR CORRETO
                      */
 
                     await desbloquearAreaAdmin();
@@ -856,14 +1038,15 @@
         );
 
 
+
         // =====================================================
-        // LIBERAR ÁREA ADMIN
+        // DESBLOQUEAR ÁREA ADMINISTRATIVA
         // =====================================================
 
         async function desbloquearAreaAdmin() {
 
             /*
-             * REMOVE O BLUR
+             * REMOVE O BORRÃO
              */
 
             listaUsuarios.classList.remove(
@@ -871,12 +1054,20 @@
             );
 
 
+            /*
+             * ALTERA A MENSAGEM
+             */
+
             mensagemUsuarios.textContent =
                 "Usuários cadastrados:";
 
 
+            /*
+             * ALTERA STATUS
+             */
+
             statusAdmin.textContent =
-                "🔓 Acesso administrativo liberado.";
+                "🔓 Área administrativa desbloqueada.";
 
             statusAdmin.className =
                 "admin-liberado";
@@ -891,12 +1082,13 @@
 
 
             /*
-             * AGORA SIM CARREGA OS USUÁRIOS
+             * CARREGA OS USUÁRIOS
              */
 
             await carregarUsuarios();
 
         }
+
 
 
         // =====================================================
@@ -906,7 +1098,11 @@
         async function carregarUsuarios() {
 
             /*
-             * PROTEÇÃO EXTRA NO JAVASCRIPT
+             * PROTEÇÃO EXTRA
+             *
+             * Mesmo que alguém tente executar
+             * a função pelo navegador, ela não
+             * consulta os dados se não for admin.
              */
 
             if (
@@ -930,13 +1126,25 @@
                     );
 
 
+                /*
+                 * LIMPA A LISTA
+                 */
+
                 listaUsuarios.innerHTML =
                     "";
 
 
+                /*
+                 * LIMPA O SELECT
+                 */
+
                 selectUsuarios.innerHTML =
                     "";
 
+
+                /*
+                 * PRIMEIRA OPÇÃO
+                 */
 
                 const primeiraOpcao =
                     document.createElement(
@@ -957,6 +1165,10 @@
                 );
 
 
+                /*
+                 * PERCORRE OS DOCUMENTOS
+                 */
+
                 snapshot.forEach(
                     (documento) => {
 
@@ -965,7 +1177,7 @@
 
 
                         /*
-                         * CARD DO USUÁRIO
+                         * CRIA CARD
                          */
 
                         const div =
@@ -979,8 +1191,8 @@
 
 
                         /*
-                         * textContent:
-                         * proteção contra XSS.
+                         * textContent protege
+                         * contra XSS.
                          */
 
                         div.textContent =
@@ -993,7 +1205,7 @@
 
 
                         /*
-                         * SELECT
+                         * CRIA OPTION
                          */
 
                         const option =
@@ -1035,6 +1247,7 @@
         }
 
 
+
         // =====================================================
         // ALTERAR USUÁRIO
         // =====================================================
@@ -1047,8 +1260,7 @@
 
 
                 /*
-                 * VERIFICA SE QUEM ESTÁ EXECUTANDO
-                 * É O ADMIN.
+                 * CONFERE ADMIN
                  */
 
                 if (
@@ -1096,6 +1308,7 @@
                     ).toLowerCase();
 
 
+
                 if (!validarNome(novoNome)) {
 
                     alert(
@@ -1118,11 +1331,13 @@
                 }
 
 
+
                 try {
 
                     /*
-                     * CONSULTA PARAMETRIZADA
-                     * COM WHERE.
+                     * CONSULTA COM WHERE
+                     *
+                     * Verifica se o email já existe.
                      */
 
                     const consulta =
@@ -1176,6 +1391,11 @@
                     }
 
 
+
+                    /*
+                     * ATUALIZA O DOCUMENTO
+                     */
+
                     await setDoc(
                         doc(
                             db,
@@ -1206,7 +1426,7 @@
                 } catch (erro) {
 
                     console.error(
-                        "ERRO ALTERAR:",
+                        "ERRO AO ALTERAR:",
                         erro
                     );
 
@@ -1221,6 +1441,7 @@
         );
 
 
+
         // =====================================================
         // DELETAR USUÁRIO
         // =====================================================
@@ -1231,6 +1452,10 @@
 
                 evento.preventDefault();
 
+
+                /*
+                 * CONFERE ADMIN
+                 */
 
                 if (
                     !auth.currentUser ||
@@ -1262,8 +1487,7 @@
 
 
                 /*
-                 * IMPEDE O ADMIN DE APAGAR
-                 * O PRÓPRIO DOCUMENTO.
+                 * NÃO PERMITE DELETAR O ADMIN
                  */
 
                 if (
@@ -1294,6 +1518,10 @@
 
                 try {
 
+                    /*
+                     * REMOVE O DOCUMENTO DO FIRESTORE
+                     */
+
                     await deleteDoc(
                         doc(
                             db,
@@ -1314,7 +1542,7 @@
                 } catch (erro) {
 
                     console.error(
-                        "ERRO DELETAR:",
+                        "ERRO AO DELETAR:",
                         erro
                     );
 
