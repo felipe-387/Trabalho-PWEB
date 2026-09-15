@@ -2,32 +2,35 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="estilo.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PÁGINA DE LOGIN</title>
+
+    <link rel="stylesheet" href="estilo.css">
 </head>
 
 <body>
 
-    <!-- =========================
+    <!-- ==============================
          LOGIN
-    ========================== -->
+    =============================== -->
 
     <form id="formLogin">
 
-        <fieldset id="fie">
+        <fieldset>
 
             <legend>LOGIN</legend>
 
             <p>
-                <label for="loginEmail">Login (Email):</label>
+                <label for="loginEmail">
+                    Login (Email):
+                </label>
 
                 <input
                     type="email"
                     id="loginEmail"
+                    name="loginEmail"
                     maxlength="120"
                     autocomplete="email"
                     required
@@ -35,11 +38,14 @@
             </p>
 
             <p>
-                <label for="loginSenha">SENHA:</label>
+                <label for="loginSenha">
+                    SENHA:
+                </label>
 
                 <input
                     type="password"
                     id="loginSenha"
+                    name="loginSenha"
                     minlength="6"
                     maxlength="128"
                     autocomplete="current-password"
@@ -47,83 +53,78 @@
                 >
             </p>
 
-            <center>
-
+            <p>
                 <button type="submit">
                     FAZER LOGIN
                 </button>
-
-            </center>
+            </p>
 
         </fieldset>
 
     </form>
 
 
-    <!-- =========================
+    <!-- ==============================
          CADASTRO
-    ========================== -->
+    =============================== -->
 
     <form id="formCadastro">
 
-        <fieldset id="cad">
+        <fieldset>
 
             <legend>
-                CASO NÃO TENHA LOGIN, CADASTRE-SE
+                CASO NÃO TENHA LOGIN,<br>
+                CADASTRE-SE
             </legend>
 
             <p>
-
-                <label for="cadastroNome">
+                <label for="nome">
                     Nome:
                 </label>
 
                 <input
                     type="text"
-                    id="cadastroNome"
+                    id="nome"
+                    name="nome"
                     minlength="2"
                     maxlength="80"
                     autocomplete="name"
                     required
                 >
-
             </p>
 
             <p>
-
-                <label for="cadastroEmail">
+                <label for="email">
                     Email:
                 </label>
 
                 <input
                     type="email"
-                    id="cadastroEmail"
+                    id="email"
+                    name="email"
                     maxlength="120"
                     autocomplete="email"
                     required
                 >
-
             </p>
 
             <p>
-
-                <label for="cadastroSenha">
+                <label for="senha">
                     Senha:
                 </label>
 
                 <input
                     type="password"
-                    id="cadastroSenha"
+                    id="senha"
+                    name="senha"
                     minlength="6"
                     maxlength="128"
                     autocomplete="new-password"
                     required
                 >
-
             </p>
 
-            <center>
-
+            <p>
                 <button type="submit">
                     CADASTRE-SE
                 </button>
@@ -132,103 +133,125 @@
                     type="reset"
                     value="Limpar"
                 >
-
-            </center>
+            </p>
 
         </fieldset>
 
     </form>
 
 
-    <!-- =========================
+    <!-- ==============================
          ÁREA ADMINISTRATIVA
-         Fica escondida até verificar
-         se o usuário é o administrador.
-    ========================== -->
+         Fica escondida até o ADMIN
+         realizar login.
+    =============================== -->
 
-    <div id="areaAdmin" style="display: none;">
+    <div
+        id="areaAdmin"
+        style="display: none;"
+    >
 
-        <!-- ALTERAR -->
+        <form id="formAdmin">
 
-        <form id="formAlterar">
-
-            <fieldset id="alterar">
+            <fieldset>
 
                 <legend>
-                    ADMINISTRADOR - ALTERAR REGISTRO
+                    ÁREA ADMINISTRATIVA
                 </legend>
 
                 <p>
+                    <strong>
+                        GERENCIAR CONTAS CADASTRADAS
+                    </strong>
+                </p>
 
-                    <label for="alterarUsuario">
-                        Escolha o usuário:
+                <p>
+                    <label for="usuarios">
+                        Selecione uma conta:
                     </label>
 
                     <select
-                        id="alterarUsuario"
+                        id="usuarios"
                         required
                     >
 
                         <option value="">
-                            Carregando usuários...
+                            Selecione um usuário
                         </option>
 
                     </select>
-
                 </p>
-
-                <center>
-
-                    <button
-                        type="submit"
-                        id="btnAlterar"
-                    >
-                        ALTERAR REGISTRO
-                    </button>
-
-                </center>
 
             </fieldset>
 
         </form>
 
 
-        <!-- DELETAR -->
+        <!-- ==============================
+             ALTERAR USUÁRIO
+        =============================== -->
 
-        <form id="formDelete">
+        <form id="formAlterar">
 
-            <fieldset id="delete">
+            <fieldset>
 
                 <legend>
-                    ADMINISTRADOR - DELETAR REGISTRO
+                    ALTERAR USUÁRIO
                 </legend>
 
                 <p>
-
-                    <label for="deleteUsuario">
-                        Escolha o usuário:
+                    <label for="novoNome">
+                        Novo nome:
                     </label>
 
-                    <select
-                        id="deleteUsuario"
-                        required
+                    <input
+                        type="text"
+                        id="novoNome"
+                        minlength="2"
+                        maxlength="80"
                     >
-
-                        <option value="">
-                            Carregando usuários...
-                        </option>
-
-                    </select>
-
                 </p>
 
-                <center>
+                <p>
+                    <label for="novoEmail">
+                        Novo e-mail:
+                    </label>
 
+                    <input
+                        type="email"
+                        id="novoEmail"
+                        maxlength="120"
+                    >
+                </p>
+
+                <p>
                     <button type="submit">
-                        DELETAR REGISTRO
+                        ALTERAR
                     </button>
+                </p>
 
-                </center>
+            </fieldset>
+
+        </form>
+
+
+        <!-- ==============================
+             DELETAR USUÁRIO
+        =============================== -->
+
+        <form id="formDelete">
+
+            <fieldset>
+
+                <legend>
+                    DELETAR USUÁRIO
+                </legend>
+
+                <p>
+                    <button type="submit">
+                        DELETAR
+                    </button>
+                </p>
 
             </fieldset>
 
@@ -237,9 +260,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- ==============================
          FIREBASE
-    ========================== -->
+    =============================== -->
 
     <script type="module">
 
@@ -258,23 +281,26 @@
 
         import {
             getFirestore,
+            collection,
+            getDocs,
             doc,
             setDoc,
             deleteDoc,
-            collection,
-            getDocs,
             query,
             where
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
         // ==================================================
-        // CONFIGURAÇÃO FIREBASE
+        // CONFIGURAÇÃO DO FIREBASE
+        // ==================================================
+        // MANTENHA A MESMA CONFIGURAÇÃO QUE JÁ ESTAVA
+        // FUNCIONANDO NO SEU INDEX.HTML.
         // ==================================================
 
         const firebaseConfig = {
 
-            apiKey: "AIzaSyDTbM_zYLwr48RRTc-Vg075ftqJ5NfwOWQ",
+            apiKey: "SUA_API_KEY",
 
             authDomain:
                 "albano-2e9e7.firebaseapp.com",
@@ -286,51 +312,62 @@
                 "albano-2e9e7.firebasestorage.app",
 
             messagingSenderId:
-                "978832727853",
+                "SEU_MESSAGING_SENDER_ID",
 
             appId:
-                "1:978832727853:web:57663dfe584550eb06fda4"
+                "SEU_APP_ID"
+
         };
+
+
+        const app =
+            initializeApp(firebaseConfig);
+
+
+        const auth =
+            getAuth(app);
+
+
+        const db =
+            getFirestore(app);
 
 
         // ==================================================
         // UID DO ADMINISTRADOR
         // ==================================================
-        //
-        // TROQUE SOMENTE ESTA PARTE.
-        //
-        // Exemplo:
-        //
-        // const ADMIN_UID = "abc123...";
-        //
+        // COLOQUE AQUI O UID DA CONTA ADMINISTRADORA.
         // ==================================================
 
-        const ADMIN_UID = "COLOQUE_SEU_UID_AQUI";
-
-
-        // ==================================================
-        // INICIALIZAÇÃO
-        // ==================================================
-
-        const app = initializeApp(firebaseConfig);
-
-        const auth = getAuth(app);
-
-        const db = getFirestore(app);
+        const ADMIN_UID =
+            "COLOQUE_SEU_UID_AQUI";
 
 
         // ==================================================
         // ELEMENTOS
         // ==================================================
 
+        const formLogin =
+            document.getElementById("formLogin");
+
+
+        const formCadastro =
+            document.getElementById("formCadastro");
+
+
         const areaAdmin =
             document.getElementById("areaAdmin");
 
-        const selectAlterar =
-            document.getElementById("alterarUsuario");
 
-        const selectDelete =
-            document.getElementById("deleteUsuario");
+        const selectUsuarios =
+            document.getElementById("usuarios");
+
+
+        const formAlterar =
+            document.getElementById("formAlterar");
+
+
+        const formDelete =
+            document.getElementById("formDelete");
 
 
         // ==================================================
@@ -342,6 +379,7 @@
             return valor
                 .trim()
                 .replace(/\s+/g, " ");
+
         }
 
 
@@ -351,28 +389,13 @@
 
         function validarNome(nome) {
 
-            if (nome.length < 2) {
+            return (
+                nome.length >= 2 &&
+                nome.length <= 80 &&
+                !nome.includes("<") &&
+                !nome.includes(">")
+            );
 
-                return false;
-            }
-
-            if (nome.length > 80) {
-
-                return false;
-            }
-
-            // Bloqueia caracteres usados para tentar
-            // inserir HTML/script no campo.
-
-            if (
-                nome.includes("<") ||
-                nome.includes(">")
-            ) {
-
-                return false;
-            }
-
-            return true;
         }
 
 
@@ -382,15 +405,14 @@
 
         function validarEmail(email) {
 
-            if (email.length > 120) {
-
-                return false;
-            }
-
             const regex =
                 /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            return regex.test(email);
+            return (
+                email.length <= 120 &&
+                regex.test(email)
+            );
+
         }
 
 
@@ -404,11 +426,12 @@
                 senha.length >= 6 &&
                 senha.length <= 128
             );
+
         }
 
 
         // ==================================================
-        // VERIFICA SE É ADMINISTRADOR
+        // VERIFICAR SE É ADMIN
         // ==================================================
 
         function usuarioEhAdmin(user) {
@@ -417,16 +440,16 @@
                 user &&
                 user.uid === ADMIN_UID
             );
+
         }
 
 
         // ==================================================
-        // CONTROLE DE ACESSO DO ADMIN
+        // VERIFICAR LOGIN ATUAL
         // ==================================================
 
         onAuthStateChanged(auth, async (user) => {
 
-            // Ninguém logado
             if (!user) {
 
                 areaAdmin.style.display = "none";
@@ -435,19 +458,28 @@
             }
 
 
-            // Usuário comum
-            if (!usuarioEhAdmin(user)) {
+            // ==============================================
+            // ADMIN
+            // ==============================================
+
+            if (usuarioEhAdmin(user)) {
+
+                areaAdmin.style.display = "block";
+
+                await carregarUsuarios();
+
+            }
+
+            // ==============================================
+            // USUÁRIO NORMAL
+            // ==============================================
+
+            else {
 
                 areaAdmin.style.display = "none";
 
-                return;
             }
 
-
-            // Administrador
-            areaAdmin.style.display = "block";
-
-            await carregarUsuarios();
         });
 
 
@@ -455,60 +487,53 @@
         // CADASTRO
         // ==================================================
 
-        document
-            .getElementById("formCadastro")
-            .addEventListener("submit", async (e) => {
+        formCadastro.addEventListener(
+            "submit",
+            async (evento) => {
 
-                e.preventDefault();
-
-
-                const nomeOriginal =
-                    document
-                        .getElementById("cadastroNome")
-                        .value;
+                evento.preventDefault();
 
 
-                const emailOriginal =
-                    document
-                        .getElementById("cadastroEmail")
-                        .value;
+                let nome =
+                    sanitizarTexto(
+                        document.getElementById("nome").value
+                    );
+
+
+                let email =
+                    sanitizarTexto(
+                        document.getElementById("email").value
+                    ).toLowerCase();
 
 
                 const senha =
-                    document
-                        .getElementById("cadastroSenha")
-                        .value;
+                    document.getElementById("senha").value;
 
 
-                const nome =
-                    sanitizarTexto(nomeOriginal);
-
-
-                const email =
-                    emailOriginal
-                        .trim()
-                        .toLowerCase();
-
-
+                // ==========================================
                 // VALIDAÇÕES
+                // ==========================================
 
                 if (!validarNome(nome)) {
 
                     alert(
-                        "Nome inválido. Use entre 2 e 80 caracteres."
+                        "Nome inválido.\n\n" +
+                        "O nome deve possuir entre 2 e 80 caracteres."
                     );
 
                     return;
+
                 }
 
 
                 if (!validarEmail(email)) {
 
                     alert(
-                        "Digite um email válido."
+                        "Digite um e-mail válido."
                     );
 
                     return;
+
                 }
 
 
@@ -519,16 +544,17 @@
                     );
 
                     return;
+
                 }
 
 
                 try {
 
-                    // Firebase Authentication cria a conta.
-                    //
-                    // A senha NÃO é salva no Firestore.
+                    // ======================================
+                    // CRIA USUÁRIO NO FIREBASE AUTH
+                    // ======================================
 
-                    const userCredential =
+                    const credencial =
                         await createUserWithEmailAndPassword(
                             auth,
                             email,
@@ -537,10 +563,12 @@
 
 
                     const user =
-                        userCredential.user;
+                        credencial.user;
 
 
-                    // Salva somente os dados necessários.
+                    // ======================================
+                    // SALVA DADOS NO FIRESTORE
+                    // ======================================
 
                     await setDoc(
                         doc(
@@ -549,81 +577,107 @@
                             user.uid
                         ),
                         {
-
                             nome: nome,
-
                             email: email
                         }
                     );
 
 
                     alert(
-                        "Usuário cadastrado com sucesso!"
+                        "Cadastro realizado com sucesso!"
                     );
 
 
-                    document
-                        .getElementById("formCadastro")
-                        .reset();
+                    formCadastro.reset();
 
 
-                    // Se quem cadastrou for admin,
-                    // atualiza a lista.
+                } catch (erro) {
+
+                    console.error(
+                        "ERRO NO CADASTRO:",
+                        erro
+                    );
+
 
                     if (
-                        auth.currentUser &&
-                        usuarioEhAdmin(auth.currentUser)
+                        erro.code ===
+                        "auth/email-already-in-use"
                     ) {
 
-                        carregarUsuarios();
+                        alert(
+                            "Esse e-mail já está cadastrado."
+                        );
+
                     }
 
+                    else if (
+                        erro.code ===
+                        "auth/invalid-email"
+                    ) {
 
-                } catch (error) {
+                        alert(
+                            "O e-mail informado é inválido."
+                        );
 
-                    console.error(error);
+                    }
 
+                    else if (
+                        erro.code ===
+                        "auth/weak-password"
+                    ) {
 
-                    alert(
-                        "Não foi possível realizar o cadastro."
-                    );
+                        alert(
+                            "A senha é muito fraca."
+                        );
+
+                    }
+
+                    else {
+
+                        alert(
+                            "Não foi possível realizar o cadastro.\n\n" +
+                            erro.code +
+                            "\n" +
+                            erro.message
+                        );
+
+                    }
+
                 }
 
-            });
+            }
+        );
 
 
         // ==================================================
         // LOGIN
         // ==================================================
 
-        document
-            .getElementById("formLogin")
-            .addEventListener("submit", async (e) => {
+        formLogin.addEventListener(
+            "submit",
+            async (evento) => {
 
-                e.preventDefault();
+                evento.preventDefault();
 
 
                 const email =
-                    document
-                        .getElementById("loginEmail")
-                        .value
-                        .trim()
-                        .toLowerCase();
+                    sanitizarTexto(
+                        document.getElementById("loginEmail").value
+                    ).toLowerCase();
 
 
                 const senha =
-                    document
-                        .getElementById("loginSenha")
-                        .value;
+                    document.getElementById("loginSenha").value;
 
 
                 if (!validarEmail(email)) {
 
                     alert(
-                        "Digite um email válido."
+                        "Digite um e-mail válido."
                     );
 
                     return;
+
                 }
 
 
@@ -634,33 +688,110 @@
                     );
 
                     return;
+
                 }
 
 
                 try {
 
-                    await signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        senha
-                    );
+                    const credencial =
+                        await signInWithEmailAndPassword(
+                            auth,
+                            email,
+                            senha
+                        );
 
+
+                    const user =
+                        credencial.user;
+
+
+                    // ======================================
+                    // SE FOR ADMIN
+                    // ======================================
+
+                    if (usuarioEhAdmin(user)) {
+
+                        areaAdmin.style.display =
+                            "block";
+
+
+                        await carregarUsuarios();
+
+
+                        alert(
+                            "Login de administrador realizado!"
+                        );
+
+                        return;
+
+                    }
+
+
+                    // ======================================
+                    // USUÁRIO NORMAL
+                    // ======================================
 
                     window.location.href =
                         "site.html";
 
 
-                } catch (error) {
+                } catch (erro) {
 
-                    console.error(error);
-
-
-                    alert(
-                        "Email ou senha incorretos."
+                    console.error(
+                        "ERRO NO LOGIN:",
+                        erro
                     );
+
+
+                    if (
+                        erro.code ===
+                        "auth/invalid-credential"
+                    ) {
+
+                        alert(
+                            "E-mail ou senha incorretos."
+                        );
+
+                    }
+
+                    else if (
+                        erro.code ===
+                        "auth/user-not-found"
+                    ) {
+
+                        alert(
+                            "Usuário não encontrado."
+                        );
+
+                    }
+
+                    else if (
+                        erro.code ===
+                        "auth/wrong-password"
+                    ) {
+
+                        alert(
+                            "Senha incorreta."
+                        );
+
+                    }
+
+                    else {
+
+                        alert(
+                            "Não foi possível realizar o login.\n\n" +
+                            erro.code +
+                            "\n" +
+                            erro.message
+                        );
+
+                    }
+
                 }
 
-            });
+            }
+        );
 
 
         // ==================================================
@@ -669,167 +800,107 @@
 
         async function carregarUsuarios() {
 
-            // SEGURANÇA EXTRA:
-            // impede chamada se não for admin.
+            // ==============================================
+            // SEGURANÇA
+            // ==============================================
+
+            if (!auth.currentUser) {
+
+                return;
+
+            }
+
 
             if (!usuarioEhAdmin(auth.currentUser)) {
 
-                areaAdmin.style.display = "none";
-
                 return;
+
             }
 
 
             try {
 
-                const usuariosRef =
-                    collection(
-                        db,
-                        "usuarios"
-                    );
-
-
-                const resultado =
+                const snapshot =
                     await getDocs(
-                        usuariosRef
-                    );
-
-
-                // Limpa os selects
-
-                selectAlterar.innerHTML = "";
-
-                selectDelete.innerHTML = "";
-
-
-                // Nenhum usuário
-
-                if (resultado.empty) {
-
-                    const opcaoAlterar =
-                        document.createElement("option");
-
-                    opcaoAlterar.value = "";
-
-                    opcaoAlterar.textContent =
-                        "Nenhum usuário cadastrado";
-
-
-                    const opcaoDelete =
-                        document.createElement("option");
-
-                    opcaoDelete.value = "";
-
-                    opcaoDelete.textContent =
-                        "Nenhum usuário cadastrado";
-
-
-                    selectAlterar.appendChild(
-                        opcaoAlterar
-                    );
-
-                    selectDelete.appendChild(
-                        opcaoDelete
-                    );
-
-                    return;
-                }
-
-
-                // Adiciona usuários
-
-                resultado.forEach((usuario) => {
-
-                    const dados =
-                        usuario.data();
-
-
-                    // ALTERAR
-
-                    const opcaoAlterar =
-                        document.createElement("option");
-
-
-                    opcaoAlterar.value =
-                        usuario.id;
-
-
-                    // textContent evita XSS
-
-                    opcaoAlterar.textContent =
-                        sanitizarTexto(
-                            dados.nome || "Sem nome"
+                        collection(
+                            db,
+                            "usuarios"
                         )
-                        +
-                        " - "
-                        +
-                        (dados.email || "Sem email");
-
-
-                    selectAlterar.appendChild(
-                        opcaoAlterar
                     );
 
 
-                    // DELETAR
+                // Limpa a lista
 
-                    const opcaoDelete =
-                        document.createElement("option");
-
-
-                    opcaoDelete.value =
-                        usuario.id;
+                selectUsuarios.innerHTML = "";
 
 
-                    opcaoDelete.textContent =
-                        sanitizarTexto(
-                            dados.nome || "Sem nome"
-                        )
-                        +
-                        " - "
-                        +
-                        (dados.email || "Sem email");
+                // Opção inicial
 
-
-                    selectDelete.appendChild(
-                        opcaoDelete
-                    );
-
-                });
-
-
-            } catch (error) {
-
-                console.error(error);
-
-
-                selectAlterar.innerHTML = "";
-
-                selectDelete.innerHTML = "";
-
-
-                const erroAlterar =
+                const opcaoInicial =
                     document.createElement("option");
 
-                erroAlterar.textContent =
-                    "Acesso negado ou erro";
+
+                opcaoInicial.value = "";
+
+                opcaoInicial.textContent =
+                    "Selecione um usuário";
 
 
-                const erroDelete =
-                    document.createElement("option");
-
-                erroDelete.textContent =
-                    "Acesso negado ou erro";
-
-
-                selectAlterar.appendChild(
-                    erroAlterar
+                selectUsuarios.appendChild(
+                    opcaoInicial
                 );
 
-                selectDelete.appendChild(
-                    erroDelete
+
+                // ==========================================
+                // ADICIONA USUÁRIOS
+                // ==========================================
+
+                snapshot.forEach(
+                    (documento) => {
+
+                        const dados =
+                            documento.data();
+
+
+                        const option =
+                            document.createElement("option");
+
+
+                        option.value =
+                            documento.id;
+
+
+                        // textContent evita XSS
+
+                        option.textContent =
+                            `${dados.nome || "Sem nome"} - ${dados.email || "Sem e-mail"}`;
+
+
+                        selectUsuarios.appendChild(
+                            option
+                        );
+
+                    }
                 );
+
+
+            } catch (erro) {
+
+                console.error(
+                    "ERRO AO CARREGAR USUÁRIOS:",
+                    erro
+                );
+
+
+                alert(
+                    "Não foi possível carregar os usuários.\n\n" +
+                    erro.code +
+                    "\n" +
+                    erro.message
+                );
+
             }
+
         }
 
 
@@ -837,29 +908,33 @@
         // ALTERAR USUÁRIO
         // ==================================================
 
-        document
-            .getElementById("formAlterar")
-            .addEventListener("submit", async (e) => {
+        formAlterar.addEventListener(
+            "submit",
+            async (evento) => {
 
-                e.preventDefault();
+                evento.preventDefault();
 
 
-                // SEGURANÇA EXTRA
+                // ==========================================
+                // VERIFICAÇÃO DO ADMIN
+                // ==========================================
 
-                if (!usuarioEhAdmin(auth.currentUser)) {
+                if (
+                    !auth.currentUser ||
+                    !usuarioEhAdmin(auth.currentUser)
+                ) {
 
                     alert(
                         "Acesso negado."
                     );
 
-                    areaAdmin.style.display = "none";
-
                     return;
+
                 }
 
 
                 const uid =
-                    selectAlterar.value;
+                    selectUsuarios.value;
 
 
                 if (!uid) {
@@ -869,90 +944,72 @@
                     );
 
                     return;
+
                 }
 
 
-                const nomeAtual =
-                    selectAlterar
-                        .options[
-                            selectAlterar.selectedIndex
-                        ]
-                        .text;
-
-
-                const novoNome =
-                    prompt(
-                        "Digite o novo nome:"
+                let novoNome =
+                    sanitizarTexto(
+                        document.getElementById(
+                            "novoNome"
+                        ).value
                     );
 
 
-                if (novoNome === null) {
-
-                    return;
-                }
-
-
-                const nome =
-                    sanitizarTexto(novoNome);
+                let novoEmail =
+                    sanitizarTexto(
+                        document.getElementById(
+                            "novoEmail"
+                        ).value
+                    ).toLowerCase();
 
 
-                if (!validarNome(nome)) {
+                // ==========================================
+                // VALIDAÇÕES
+                // ==========================================
+
+                if (!validarNome(novoNome)) {
 
                     alert(
-                        "Nome inválido."
+                        "Nome inválido.\n\n" +
+                        "Use entre 2 e 80 caracteres."
                     );
 
                     return;
+
                 }
 
 
-                const novoEmail =
-                    prompt(
-                        "Digite o novo email:"
-                    );
-
-
-                if (novoEmail === null) {
-
-                    return;
-                }
-
-
-                const email =
-                    novoEmail
-                        .trim()
-                        .toLowerCase();
-
-
-                if (!validarEmail(email)) {
+                if (!validarEmail(novoEmail)) {
 
                     alert(
-                        "Email inválido."
+                        "Digite um e-mail válido."
                     );
 
                     return;
+
                 }
 
 
                 try {
 
+                    // ======================================
+                    // CONSULTA COM WHERE
+                    // ======================================
                     // Verifica se outro usuário já possui
-                    // esse email.
-
-                    const usuariosRef =
-                        collection(
-                            db,
-                            "usuarios"
-                        );
-
+                    // esse e-mail.
+                    // ======================================
 
                     const consulta =
                         query(
-                            usuariosRef,
+                            collection(
+                                db,
+                                "usuarios"
+                            ),
                             where(
                                 "email",
                                 "==",
-                                email
+                                novoEmail
                             )
                         );
 
@@ -963,32 +1020,40 @@
                         );
 
 
-                    let emailDuplicado = false;
+                    let emailDuplicado =
+                        false;
 
 
-                    resultado.forEach((usuario) => {
+                    resultado.forEach(
+                        (documento) => {
 
-                        if (
-                            usuario.id !== uid
-                        ) {
+                            if (
+                                documento.id !== uid
+                            ) {
 
-                            emailDuplicado = true;
+                                emailDuplicado =
+                                    true;
+
+                            }
+
                         }
-
-                    });
+                    );
 
 
                     if (emailDuplicado) {
 
                         alert(
-                            "Esse email já pertence a outro usuário."
+                            "Esse e-mail já pertence a outro usuário."
                         );
 
                         return;
+
                     }
 
 
-                    // Atualiza somente os campos permitidos.
+                    // ======================================
+                    // ATUALIZA FIRESTORE
+                    // ======================================
 
                     await setDoc(
                         doc(
@@ -997,11 +1062,8 @@
                             uid
                         ),
                         {
-
-                            nome: nome,
-
-                            email: email
-
+                            nome: novoNome,
+                            email: novoEmail
                         },
                         {
                             merge: true
@@ -1014,49 +1076,64 @@
                     );
 
 
+                    formAlterar.reset();
+
+
                     await carregarUsuarios();
 
 
-                } catch (error) {
+                } catch (erro) {
 
-                    console.error(error);
+                    console.error(
+                        "ERRO AO ALTERAR:",
+                        erro
+                    );
 
 
                     alert(
-                        "Não foi possível alterar o usuário."
+                        "Não foi possível alterar o usuário.\n\n" +
+                        erro.code +
+                        "\n" +
+                        erro.message
                     );
+
                 }
 
-            });
+            }
+        );
 
 
         // ==================================================
         // DELETAR USUÁRIO
         // ==================================================
 
-        document
-            .getElementById("formDelete")
-            .addEventListener("submit", async (e) => {
+        formDelete.addEventListener(
+            "submit",
+            async (evento) => {
 
-                e.preventDefault();
+                evento.preventDefault();
 
 
-                // SEGURANÇA EXTRA
+                // ==========================================
+                // VERIFICAÇÃO DO ADMIN
+                // ==========================================
 
-                if (!usuarioEhAdmin(auth.currentUser)) {
+                if (
+                    !auth.currentUser ||
+                    !usuarioEhAdmin(auth.currentUser)
+                ) {
 
                     alert(
                         "Acesso negado."
                     );
 
-                    areaAdmin.style.display = "none";
-
                     return;
+
                 }
 
 
                 const uid =
-                    selectDelete.value;
+                    selectUsuarios.value;
 
 
                 if (!uid) {
@@ -1066,47 +1143,43 @@
                     );
 
                     return;
+
                 }
 
 
-                // Impede o admin de apagar
-                // o próprio cadastro do Firestore.
+                // ==========================================
+                // IMPEDE ADMIN DE SE APAGAR
+                // ==========================================
 
                 if (uid === ADMIN_UID) {
 
                     alert(
-                        "O administrador não pode excluir a própria conta por este painel."
+                        "O administrador não pode excluir a própria conta."
                     );
 
                     return;
+
                 }
-
-
-                const nome =
-                    selectDelete
-                        .options[
-                            selectDelete.selectedIndex
-                        ]
-                        .textContent;
 
 
                 const confirmar =
                     confirm(
-                        "Tem certeza que deseja deletar:\n\n"
-                        +
-                        nome
-                        +
-                        "?"
+                        "Tem certeza que deseja deletar esta conta?"
                     );
 
 
                 if (!confirmar) {
 
                     return;
+
                 }
 
 
                 try {
+
+                    // ======================================
+                    // DELETE FIRESTORE
+                    // ======================================
 
                     await deleteDoc(
                         doc(
@@ -1125,17 +1198,25 @@
                     await carregarUsuarios();
 
 
-                } catch (error) {
+                } catch (erro) {
 
-                    console.error(error);
+                    console.error(
+                        "ERRO AO DELETAR:",
+                        erro
+                    );
 
 
                     alert(
-                        "Acesso negado ou erro ao deletar usuário."
+                        "Não foi possível deletar o usuário.\n\n" +
+                        erro.code +
+                        "\n" +
+                        erro.message
                     );
+
                 }
 
-            });
+            }
+        );
 
     </script>
 
