@@ -7,59 +7,60 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #eeeeee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
     margin: 0;
-    padding: 20px;
-    color: #111111;
+    padding: 40px 20px;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 /* =========================================
-   CADASTRO E LOGIN
+   FORMULÁRIOS E ESTRUTURA
    ========================================= */
 
 #formCadastro,
-#formLogin {
-    display: block !important;
-    width: 400px;
-    margin: 20px auto;
-}
-
-
-/* =========================================
-   FORMULÁRIOS
-   ========================================= */
-
-form {
-    width: 400px;
-    margin: 20px auto;
+#formLogin,
+form,
+#usuariosContainer,
+#listaUsuarios,
+#areaDesbloqueio,
+#areaAdminLiberada {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 0 25px 0;
 }
 
 fieldset {
     background-color: #ffffff;
-    border: 1px solid #999999;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 legend {
-    font-weight: bold;
-    font-size: 18px;
-    padding: 0 5px;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0 8px;
+    color: #2c3e50;
 }
 
 label {
     display: block;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: #4a5568;
 }
 
 
 /* =========================================
-   CAMPOS
+   CAMPOS DE ENTRADA
    ========================================= */
 
 input[type="text"],
@@ -67,12 +68,21 @@ input[type="email"],
 input[type="password"],
 select {
     display: block;
-    width: 95%;
-    padding: 8px;
-    border: 1px solid #aaaaaa;
-    border-radius: 4px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
     font-size: 14px;
     background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: #3b82f6;
 }
 
 
@@ -81,31 +91,39 @@ select {
    ========================================= */
 
 button {
-    background-color: #222222;
+    width: 100%;
+    background-color: #1e293b;
     color: #ffffff;
     border: none;
-    padding: 9px 14px;
-    border-radius: 5px;
-    font-weight: bold;
+    padding: 11px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 15px;
+    transition: background-color 0.2s ease;
 }
 
 button:hover {
-    background-color: #444444;
+    background-color: #334155;
 }
 
 input[type="reset"] {
     display: block;
-    width: 95%;
-    padding: 9px;
-    margin-top: 4px;
-    border: none;
-    border-radius: 4px;
-    background-color: #dddddd;
-    color: #111111;
-    font-weight: bold;
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #f1f5f9;
+    color: #475569;
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+input[type="reset"]:hover {
+    background-color: #e2e8f0;
 }
 
 
@@ -113,19 +131,19 @@ input[type="reset"] {
    USUÁRIOS CADASTRADOS
    ========================================= */
 
-#usuariosContainer {
-    display: block;
-    width: 400px;
-    margin: 35px auto;
-}
-
-#usuariosContainer h2 {
-    font-size: 22px;
+#usuariosContainer h2,
+#areaAdminLiberada h2 {
+    font-size: 20px;
     margin: 0 0 10px 0;
+    color: #1e293b;
 }
 
-#usuariosContainer p {
-    margin: 10px 0;
+#usuariosContainer p,
+#areaAdminLiberada p,
+#areaDesbloqueio p {
+    margin: 8px 0 15px 0;
+    font-size: 14px;
+    color: #64748b;
 }
 
 
@@ -133,29 +151,25 @@ input[type="reset"] {
    LISTA DE USUÁRIOS
    ========================================= */
 
-#listaUsuarios {
-    display: block;
-    width: 400px;
-    margin: 15px auto;
-}
-
 #listaUsuarios.borrado {
-    filter: blur(7px);
+    filter: blur(6px);
     user-select: none;
     pointer-events: none;
 }
 
 .usuario {
     background-color: #ffffff;
-    border: 1px solid #999999;
-    border-radius: 6px;
-    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
     margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .usuario strong {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    color: #0f172a;
 }
 
 
@@ -163,25 +177,9 @@ input[type="reset"] {
    ACESSO ADMINISTRATIVO
    ========================================= */
 
-#areaDesbloqueio {
-    display: block;
-    width: 400px;
-    margin: 35px auto;
-}
-
 #areaDesbloqueio fieldset {
     width: 100%;
 }
-
-#areaDesbloqueio p {
-    margin: 10px 0 15px 0;
-}
-
-
-/*
-   O formulário interno do login admin
-   não terá uma segunda caixa.
-*/
 
 #formDesbloquear {
     width: 100%;
@@ -192,37 +190,13 @@ input[type="reset"] {
 }
 
 #formDesbloquear input {
-    width: 95%;
+    width: 100%;
 }
 
 #statusAdmin {
     margin-top: 12px;
-    font-weight: bold;
-}
-
-
-/* =========================================
-   ÁREA ADMINISTRATIVA
-   ========================================= */
-
-#areaAdminLiberada {
-    display: block;
-    width: 400px;
-    margin: 35px auto;
-}
-
-#areaAdminLiberada h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-}
-
-#areaAdminLiberada p {
-    margin-bottom: 15px;
-}
-
-#areaAdminLiberada form {
-    width: 400px;
-    margin: 20px auto;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 
@@ -232,9 +206,9 @@ input[type="reset"] {
 
 #selectUsuario,
 #selectExcluir {
-    width: 95%;
-    padding: 8px;
-    margin-bottom: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 
@@ -243,9 +217,8 @@ input[type="reset"] {
    ========================================= */
 
 @media (max-width: 500px) {
-
     body {
-        padding: 10px;
+        padding: 15px 10px;
     }
 
     #formCadastro,
@@ -253,21 +226,7 @@ input[type="reset"] {
     #usuariosContainer,
     #listaUsuarios,
     #areaDesbloqueio,
-    #areaAdminLiberada,
-    #areaAdminLiberada form {
-        width: 100%;
-        max-width: 400px;
-    }
-
-    #formDesbloquear {
-        width: 100%;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    select,
-    input[type="reset"] {
-        width: 100%;
+    #areaAdminLiberada {
+        max-width: 100%;
     }
 }
