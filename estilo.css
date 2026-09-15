@@ -1,53 +1,54 @@
-/* ================================= */
-/* CONFIGURAÇÃO GERAL                 */
-/* ================================= */
+/* =========================================
+   CONFIGURAÇÃO GERAL
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-family: Arial, sans-serif;
     background-color: #eeeeee;
-    margin: 20px;
+    margin: 0;
+    padding: 20px;
     color: #111111;
 }
 
 
-/* ================================= */
-/* FORMULÁRIOS                        */
-/* ================================= */
-
-form {
-    width: 400px;
-    margin: 20px 0;
-}
-
-
-/* FORÇA CADASTRO E LOGIN EM COLUNA */
+/* =========================================
+   CADASTRO E LOGIN
+   ========================================= */
 
 #formCadastro,
 #formLogin {
     display: block !important;
     width: 400px;
-    margin: 20px 0;
+    margin: 20px auto;
 }
 
+
+/* =========================================
+   FORMULÁRIOS
+   ========================================= */
+
+form {
+    width: 400px;
+    margin: 20px auto;
+}
 
 fieldset {
     background-color: #ffffff;
     border: 1px solid #999999;
     border-radius: 8px;
     padding: 15px;
+    margin: 0;
 }
-
 
 legend {
     font-weight: bold;
     font-size: 18px;
     padding: 0 5px;
 }
-
-
-/* ================================= */
-/* CAMPOS                             */
-/* ================================= */
 
 label {
     display: block;
@@ -57,22 +58,27 @@ label {
 }
 
 
+/* =========================================
+   CAMPOS
+   ========================================= */
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
 select {
+    display: block;
     width: 95%;
     padding: 8px;
-    box-sizing: border-box;
     border: 1px solid #aaaaaa;
     border-radius: 4px;
     font-size: 14px;
+    background-color: #ffffff;
 }
 
 
-/* ================================= */
-/* BOTÕES                            */
-/* ================================= */
+/* =========================================
+   BOTÕES
+   ========================================= */
 
 button {
     background-color: #222222;
@@ -85,11 +91,9 @@ button {
     margin-top: 8px;
 }
 
-
 button:hover {
     background-color: #444444;
 }
-
 
 input[type="reset"] {
     display: block;
@@ -105,43 +109,41 @@ input[type="reset"] {
 }
 
 
-/* ================================= */
-/* USUÁRIOS CADASTRADOS              */
-/* ================================= */
+/* =========================================
+   USUÁRIOS CADASTRADOS
+   ========================================= */
 
 #usuariosContainer {
+    display: block;
     width: 400px;
-    margin-top: 30px;
+    margin: 35px auto;
 }
-
 
 #usuariosContainer h2 {
     font-size: 22px;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
 }
-
 
 #usuariosContainer p {
-    margin-bottom: 15px;
+    margin: 10px 0;
 }
 
 
-/* ================================= */
-/* LISTA DE USUÁRIOS                 */
-/* ================================= */
+/* =========================================
+   LISTA DE USUÁRIOS
+   ========================================= */
 
 #listaUsuarios {
+    display: block;
     width: 400px;
-    margin-top: 15px;
+    margin: 15px auto;
 }
-
 
 #listaUsuarios.borrado {
     filter: blur(7px);
     user-select: none;
     pointer-events: none;
 }
-
 
 .usuario {
     background-color: #ffffff;
@@ -151,32 +153,35 @@ input[type="reset"] {
     margin-bottom: 10px;
 }
 
-
 .usuario strong {
     display: block;
     margin-bottom: 5px;
 }
 
 
-/* ================================= */
-/* ACESSO ADMINISTRATIVO              */
-/* ================================= */
+/* =========================================
+   ACESSO ADMINISTRATIVO
+   ========================================= */
 
 #areaDesbloqueio {
+    display: block;
     width: 400px;
-    margin-top: 30px;
+    margin: 35px auto;
 }
-
 
 #areaDesbloqueio fieldset {
     width: 100%;
-    box-sizing: border-box;
+}
+
+#areaDesbloqueio p {
+    margin: 10px 0 15px 0;
 }
 
 
-/* IMPORTANTE:
-   O FORMULÁRIO DO ADMIN NÃO RECEBE
-   UMA SEGUNDA CAIXA */
+/*
+   O formulário interno do login admin
+   não terá uma segunda caixa.
+*/
 
 #formDesbloquear {
     width: 100%;
@@ -186,6 +191,9 @@ input[type="reset"] {
     border: none;
 }
 
+#formDesbloquear input {
+    width: 95%;
+}
 
 #statusAdmin {
     margin-top: 12px;
@@ -193,35 +201,51 @@ input[type="reset"] {
 }
 
 
-/* ================================= */
-/* ÁREA ADMINISTRATIVA                */
-/* ================================= */
+/* =========================================
+   ÁREA ADMINISTRATIVA
+   ========================================= */
 
 #areaAdminLiberada {
+    display: block;
     width: 400px;
-    margin-top: 30px;
+    margin: 35px auto;
 }
 
-
 #areaAdminLiberada h2 {
+    font-size: 22px;
     margin-bottom: 10px;
 }
 
+#areaAdminLiberada p {
+    margin-bottom: 15px;
+}
 
 #areaAdminLiberada form {
     width: 400px;
-    margin: 20px 0;
+    margin: 20px auto;
 }
 
 
-/* ================================= */
-/* RESPONSIVIDADE                     */
-/* ================================= */
+/* =========================================
+   SELECT DA ÁREA ADMIN
+   ========================================= */
+
+#selectUsuario,
+#selectExcluir {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
 
 @media (max-width: 500px) {
 
     body {
-        margin: 10px;
+        padding: 10px;
     }
 
     #formCadastro,
@@ -232,7 +256,18 @@ input[type="reset"] {
     #areaAdminLiberada,
     #areaAdminLiberada form {
         width: 100%;
-        box-sizing: border-box;
+        max-width: 400px;
     }
 
+    #formDesbloquear {
+        width: 100%;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    input[type="reset"] {
+        width: 100%;
+    }
 }
