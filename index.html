@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,13 +62,11 @@
         <h2>USUÁRIOS CADASTRADOS</h2>
 
         <p>
-            🔒 Os usuários estão protegidos.
+            🔒 Os usuários estão protegidos.<br>
             Para visualizar, entre com o login do administrador.
         </p>
 
-        <div id="listaUsuarios" class="borrado">
-            <!-- Usuários carregados pelo JavaScript -->
-        </div>
+        <div id="listaUsuarios" class="borrado"></div>
 
     </section>
 
@@ -136,7 +135,7 @@
         </p>
 
 
-        <!-- ALTERAR USUÁRIO -->
+        <!-- ALTERAR -->
 
         <form id="formAlterar">
 
@@ -154,26 +153,17 @@
                     </option>
                 </select>
 
-
                 <label for="novoNome">
                     Novo nome:
                 </label>
 
-                <input
-                    type="text"
-                    id="novoNome"
-                >
-
+                <input type="text" id="novoNome">
 
                 <label for="novoEmail">
                     Novo email:
                 </label>
 
-                <input
-                    type="email"
-                    id="novoEmail"
-                >
-
+                <input type="email" id="novoEmail">
 
                 <button type="submit">
                     ALTERAR
@@ -184,7 +174,7 @@
         </form>
 
 
-        <!-- EXCLUIR USUÁRIO -->
+        <!-- EXCLUIR -->
 
         <form id="formExcluir">
 
@@ -202,7 +192,7 @@
                     </option>
                 </select>
 
-                <br>
+                <br><br>
 
                 <button type="submit">
                     EXCLUIR USUÁRIO
@@ -222,7 +212,7 @@
     <script type="module">
 
         import { initializeApp }
-            from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
         import {
             getAuth,
@@ -245,12 +235,13 @@
 
 
         // =====================================
-        // CONFIGURAÇÃO DO FIREBASE
+        // FIREBASE
         // =====================================
 
         const firebaseConfig = {
 
-            apiKey: "SUA_API_KEY",
+            apiKey:
+                "AIzaSyDTbM_zYLwr48RRTc-Vg075ftqJ5NfwOWQ",
 
             authDomain:
                 "albano-2e9e7.firebaseapp.com",
@@ -262,10 +253,10 @@
                 "albano-2e9e7.firebasestorage.app",
 
             messagingSenderId:
-                "SEU_MESSAGING_SENDER_ID",
+                "978832727853",
 
             appId:
-                "SEU_APP_ID"
+                "1:978832727853:web:57663dfe584550eb06fda4"
         };
 
 
@@ -277,11 +268,11 @@
 
 
         // =====================================
-        // UID DO ADMINISTRADOR
+        // ADMIN
         // =====================================
 
         const ADMIN_UID =
-            "COLOQUE_AQUI_O_UID_DO_ADMINISTRADOR";
+            "9DxIiF3bTtOGEHMMWTwK3RXhXUt2";
 
 
         // =====================================
@@ -320,7 +311,7 @@
 
 
         // =====================================
-        // SANITIZAÇÃO
+        // VALIDAÇÕES
         // =====================================
 
         function sanitizarTexto(texto) {
@@ -330,10 +321,6 @@
                 .replace(/\s+/g, " ");
         }
 
-
-        // =====================================
-        // VALIDAÇÃO
-        // =====================================
 
         function validarNome(nome) {
 
@@ -417,6 +404,8 @@
 
                 try {
 
+                    // Cria a conta no Authentication
+
                     const resultado =
                         await createUserWithEmailAndPassword(
                             auth,
@@ -428,6 +417,8 @@
                     const usuario =
                         resultado.user;
 
+
+                    // Salva os dados no Firestore
 
                     await setDoc(
                         doc(
@@ -450,12 +441,21 @@
                     formCadastro.reset();
 
                 }
+
                 catch (erro) {
 
-                    console.error(erro);
+                    console.error(
+                        "Erro completo:",
+                        erro
+                    );
+
+                    console.error(
+                        "Código:",
+                        erro.code
+                    );
 
                     alert(
-                        "Erro ao cadastrar: " +
+                        "Erro ao cadastrar:\n\n" +
                         erro.message
                     );
                 }
@@ -465,7 +465,7 @@
 
 
         // =====================================
-        // LOGIN NORMAL
+        // LOGIN
         // =====================================
 
         formLogin.addEventListener(
@@ -501,10 +501,6 @@
                         resultado.user;
 
 
-                    // Se for administrador,
-                    // permanece nesta página
-                    // e libera a área admin.
-
                     if (
                         usuario.uid === ADMIN_UID
                     ) {
@@ -515,12 +511,11 @@
                     }
 
 
-                    // Usuário comum
-
                     window.location.href =
                         "site.html";
 
                 }
+
                 catch (erro) {
 
                     console.error(erro);
@@ -535,7 +530,7 @@
 
 
         // =====================================
-        // LOGIN DO ADMINISTRADOR
+        // LOGIN ADMIN
         // =====================================
 
         formDesbloquear.addEventListener(
@@ -544,14 +539,12 @@
 
                 event.preventDefault();
 
-
                 const email =
                     document.getElementById(
                         "emailAdmin"
                     ).value
                     .trim()
                     .toLowerCase();
-
 
                 const senha =
                     document.getElementById(
@@ -587,6 +580,7 @@
                     desbloquearAreaAdmin();
 
                 }
+
                 catch (erro) {
 
                     console.error(erro);
@@ -600,7 +594,7 @@
 
 
         // =====================================
-        // LIBERAR ÁREA ADMIN
+        // LIBERAR ADMIN
         // =====================================
 
         async function desbloquearAreaAdmin() {
@@ -609,14 +603,11 @@
                 "borrado"
             );
 
-
             areaAdminLiberada.hidden =
                 false;
 
-
             statusAdmin.textContent =
                 "✅ Acesso administrativo autorizado.";
-
 
             await carregarUsuarios();
         }
@@ -650,7 +641,6 @@
 
                 listaUsuarios.innerHTML = "";
 
-
                 selectUsuario.innerHTML =
                     '<option value="">Selecione um usuário</option>';
 
@@ -671,27 +661,21 @@
                         // CARD
 
                         const card =
-                            document.createElement(
-                                "div"
-                            );
+                            document.createElement("div");
 
                         card.className =
                             "usuario";
 
 
                         const nome =
-                            document.createElement(
-                                "strong"
-                            );
+                            document.createElement("strong");
 
                         nome.textContent =
                             dados.nome || "Sem nome";
 
 
                         const email =
-                            document.createElement(
-                                "span"
-                            );
+                            document.createElement("span");
 
                         email.textContent =
                             dados.email || "Sem email";
@@ -707,17 +691,15 @@
                         // SELECT ALTERAR
 
                         const opcaoAlterar =
-                            document.createElement(
-                                "option"
-                            );
+                            document.createElement("option");
 
                         opcaoAlterar.value =
                             uid;
 
                         opcaoAlterar.textContent =
-                            dados.nome +
+                            (dados.nome || "Sem nome") +
                             " - " +
-                            dados.email;
+                            (dados.email || "Sem email");
 
                         selectUsuario.appendChild(
                             opcaoAlterar
@@ -727,17 +709,15 @@
                         // SELECT EXCLUIR
 
                         const opcaoExcluir =
-                            document.createElement(
-                                "option"
-                            );
+                            document.createElement("option");
 
                         opcaoExcluir.value =
                             uid;
 
                         opcaoExcluir.textContent =
-                            dados.nome +
+                            (dados.nome || "Sem nome") +
                             " - " +
-                            dados.email;
+                            (dados.email || "Sem email");
 
                         selectExcluir.appendChild(
                             opcaoExcluir
@@ -747,6 +727,7 @@
                 );
 
             }
+
             catch (erro) {
 
                 console.error(erro);
@@ -758,7 +739,7 @@
 
 
         // =====================================
-        // SELECIONAR USUÁRIO PARA ALTERAR
+        // SELECIONAR PARA ALTERAR
         // =====================================
 
         selectUsuario.addEventListener(
@@ -818,10 +799,12 @@
                                 "novoEmail"
                             ).value =
                                 dados.email || "";
+
                         }
                     );
 
                 }
+
                 catch (erro) {
 
                     console.error(erro);
@@ -887,9 +870,7 @@
 
                 if (!validarNome(novoNome)) {
 
-                    alert(
-                        "Nome inválido."
-                    );
+                    alert("Nome inválido.");
 
                     return;
                 }
@@ -897,19 +878,13 @@
 
                 if (!validarEmail(novoEmail)) {
 
-                    alert(
-                        "Email inválido."
-                    );
+                    alert("Email inválido.");
 
                     return;
                 }
 
 
                 try {
-
-                    // WHERE:
-                    // procura se já existe outro
-                    // usuário com o mesmo email.
 
                     const consulta =
                         await getDocs(
@@ -941,6 +916,7 @@
                                 emailDuplicado =
                                     true;
                             }
+
                         }
                     );
 
@@ -979,12 +955,14 @@
                     await carregarUsuarios();
 
                 }
+
                 catch (erro) {
 
                     console.error(erro);
 
                     alert(
-                        "Erro ao alterar usuário."
+                        "Erro ao alterar usuário:\n\n" +
+                        erro.message
                     );
                 }
 
@@ -1047,7 +1025,6 @@
 
 
                 if (!confirmar) {
-
                     return;
                 }
 
@@ -1071,12 +1048,14 @@
                     await carregarUsuarios();
 
                 }
+
                 catch (erro) {
 
                     console.error(erro);
 
                     alert(
-                        "Erro ao excluir usuário."
+                        "Erro ao excluir usuário:\n\n" +
+                        erro.message
                     );
                 }
 
@@ -1086,4 +1065,5 @@
     </script>
 
 </body>
+
 </html>
